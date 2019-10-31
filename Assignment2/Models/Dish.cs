@@ -13,7 +13,7 @@ namespace Restaurant.Models
         public List<GuestDish> GuestDish { get; set; }
         public Review Review { get; set; }
 
-        public RestaurantDish RestaurantDish { get; set; }
+        public List<RestaurantDish> RestaurantDish { get; set; }
 
 
     }
