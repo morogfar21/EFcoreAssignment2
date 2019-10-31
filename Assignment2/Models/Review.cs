@@ -8,5 +8,7 @@ namespace Restaurant.Models
     {
         public string text { get; set; }
         public int stars { get; set; }
+
+        private List<Restaurant> restaurantreviews { get; set; }
     }
 }
