@@ -4,7 +4,9 @@ using System.Text;
 
 namespace Restaurant.Models
 {
-    class Table
+    public class Table
     {
+        public int number { get; set; }
+        public 
     }
 }
