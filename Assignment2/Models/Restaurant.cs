@@ -10,6 +10,7 @@ namespace Restaurant.Models
         public string name { get; set; }
         public string type { get; set; }
 
+        private List<Restaurant> restaurants { get; set; }
 
         //[Column(TypeName = "Breakfast"),
         //Column(TypeName = "Dinner")]
