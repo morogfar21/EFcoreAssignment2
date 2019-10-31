@@ -6,5 +6,7 @@ namespace Restaurant.Models
 {
     public class Review
     {
+        public string text { get; set; }
+        public int stars { get; set; }
     }
 }
