@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Assignment2.ShadowModels;
 
 namespace Restaurant.Models
 {
-    public class Waiter
+    public class Waiter : Person
     {
+        public int Salary { get; set; }
+        public WaiterTable WaiterTable { get; set; }
+
     }
 }
