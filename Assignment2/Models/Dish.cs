@@ -5,15 +5,15 @@ using Assignment2.ShadowModels;
 
 namespace Restaurant.Models
 {
-    public class Dish
+    public class Dish : Restaurant
     {
         public float Price { get; set; }
         public string Type { get; set; }
 
-        public List<GuestDish> GuestDish { get; set; }
+        public List<GuestDish> GuestDishes { get; set; }
         public Review Review { get; set; }
 
-        public RestaurantDish RestaurantDish { get; set; }
+        public List<RestaurantDish> RestaurantDishes { get; set; }
 
 
     }
