@@ -8,7 +8,7 @@ namespace Restaurant.Models
     public class Table
     {
         public int number { get; set; }
-        public WaiterTable WaiterTable { get; set; }
+        public List<WaiterTable> WaiterTables { get; set; }
         public Restaurant Restaurant { get; set; }
         public List<Guest> Guests { get; set; }
     }
