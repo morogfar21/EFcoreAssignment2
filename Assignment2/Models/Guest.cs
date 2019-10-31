@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Assignment2.ShadowModels;
 
-namespace Restaurant.Models
+namespace Assignment2.Models
 {
     public class Guest
     {

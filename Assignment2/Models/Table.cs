@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Assignment2.ShadowModels;
 
-namespace Restaurant.Models
+namespace Assignment2.Models
 {
     public class Table
     {
         public int number { get; set; }
         public WaiterTable WaiterTable { get; set; }
-        public Restaurant Restaurant { get; set; }
+        public Assignment2.Models.Restaurant Restaurant { get; set; }
         public List<Guest> Guests { get; set; }
     }
 }

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace Restaurant.Models
+namespace Assignment2.Models
 {
     public class Restaurant
     {

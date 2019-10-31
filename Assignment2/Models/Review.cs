@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace Restaurant.Models
+namespace Assignment2.Models
 {
     public class Review
     {
         public string text { get; set; }
         public int stars { get; set; }
 
-        private List<Restaurant> restaurantreviews { get; set; }
+        private List<Assignment2.Models.Restaurant> restaurantreviews { get; set; }
     }
 }

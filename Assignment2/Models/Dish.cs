@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Assignment2.ShadowModels;
 
-namespace Restaurant.Models
+namespace Assignment2.Models
 {
-    public class Dish : Restaurant
+    public class Dish
     {
         public float Price { get; set; }
         public string Type { get; set; }

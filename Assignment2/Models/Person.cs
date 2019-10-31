@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Restaurant.Models
+﻿namespace Assignment2.Models
 {
     public class Person
     {

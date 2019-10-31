@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Restaurant.Models;
+using Assignment2.Models;
 
 namespace Assignment2.ShadowModels
 {
@@ -9,8 +9,8 @@ namespace Assignment2.ShadowModels
     {
         public Dish Dish { get; set; }
         public Guest Guest { get; set; }
-        public string Name { get; set; }
-        public string Type { get; set; }
+        public string GuestName { get; set; }
+        public string DishType { get; set; }
 
     }
 }
