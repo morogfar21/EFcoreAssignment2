@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Restaurant.Models
+namespace Assignment2.ShadowModels
 {
-    public class Review
+    public class RestaurantDish
     {
     }
 }
