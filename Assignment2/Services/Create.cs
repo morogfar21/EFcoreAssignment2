@@ -84,7 +84,7 @@ namespace Assignment2.Services
             string text = Console.ReadLine();
 
             Console.Write("Stars: ");
-            int stars = int.Parse(Console.ReadLine());
+            double stars = double.Parse(Console.ReadLine());
 
             return new Review()
             {
