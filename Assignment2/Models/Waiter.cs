@@ -5,7 +5,6 @@ namespace Assignment2.Models
     public class Waiter : Person
     {
         public int Salary { get; set; }
-        public WaiterTable WaiterTable { get; set; }
-
+        public List<WaiterTable> WaiterTables { get; set; }
     }
 }
