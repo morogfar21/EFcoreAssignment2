@@ -5,6 +5,7 @@ namespace Assignment2.Models
 {
     public class Guest
     {
-        public List<GuestDish> GuestDishes; 
+        public List<GuestDish> GuestDishes;
+        public int Time;
     }
 }
