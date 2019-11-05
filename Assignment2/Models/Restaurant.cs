@@ -1,20 +1,24 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Assignment2.Models
 {
     public class Restaurant
     {
-        public string name { get; set; }
-        public string type { get; set; }
+        public string Name { get; set; }
+        public string Type { get; set; }
 
-        private List<Restaurant> restaurants { get; set; }
+        //One to Many
+        private List<Review> Restaurants { get; set; }
+
+        //One to Many
+        private List<Table> Tables { get; set; }
 
         //[Column(TypeName = "Breakfast"),
         //Column(TypeName = "Dinner")]
         //[Column(TypeName = "Dinner")]
         //[Column(TypeName = "Buffet")]
-        public string address { get; set; }
-
-        
+        [Key]
+        public string Address { get; set; }
     }
 }
