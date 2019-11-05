@@ -30,18 +30,10 @@ namespace Assignment2.Services
             };
         }
 
-        //public static Review CreateReview()
-        //{
+        public static Review CreateReview()
+        {
 
-        //}
-
-        //private static Restaurant FindRestaurant(AppDbContext context)
-        //{
-        //    Console.Write("Restaurant address: ");
-        //    string address = Console.ReadLine();
-
-        //    return context.Restaurants.Where(b => b.Isbn == isbn).Single();
-        //}
+        }
         #endregion
 
         #region Henrik
