@@ -48,16 +48,19 @@ namespace Assignment2.Services
         #region Frands
         public static Table CreateTable(AppDbContext context)
         {
-            Restaurant rest = FindRestaurant(context);
+            Restaurant restaurant = Find.FindRestaurant(context);
+            Waiter waiter = Find.FindWaiter()
 
-            Console.Write("Table number: ");
+            Console.Write("Number of table: ");
             int number = int.Parse(Console.ReadLine());
 
-            return new Table()
+            Table table = new Table()
             {
                 Number = number,
-                Restaurant = rest
+                Restaurant = restaurant
             };
+
+
 
             //[Key]
             //public int Number { get; set; }
