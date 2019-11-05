@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Assignment2
 {
-    class AppDbContext: DbContext
+    class AppDbContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -24,7 +24,31 @@ namespace Assignment2
                 .HasOne(rd => rd.Dish)
                 .WithMany(d => d.RestaurantDishes)
                 .HasForeignKey(rd => rd.DishType);
+
+            #region GuestDish
+
+            modelBuilder.Entity<GuestDish>()
+                .HasOne(gd => gd.Guest)
+                .WithMany(d => d.GuestDishes)
+                .HasForeignKey(gd => gd.GuestName);
+            modelBuilder.Entity<GuestDish>()
+                .HasOne(gd => gd.Dish)
+                .WithMany(d => d.GuestDishes)
+                .HasForeignKey(gd => gd.DishType);
+            #endregion
+
+            modelBuilder.Entity<WaiterTable>()
+                .HasOne(wt => wt.Waiter)
+                .WithMany(w => w.WaiterTables)
+                .HasForeignKey(wt => wt.WaiterName);
+            modelBuilder.Entity<WaiterTable>()
+                .HasOne(wt => wt.Table)
+                .WithMany(t => t.WaiterTables)
+                .HasForeignKey(wt => wt.TableNumber);
+
+
         }
+
     }
     
 

@@ -7,6 +7,7 @@ namespace Assignment2.ShadowModels
 {
     public class WaiterTable
     {
+
         public int TableNumber { get; set; }
 
         public string WaiterName { get; set; }
