@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Restaurant.Models;
+using Assignment2.Models;
 
 namespace Assignment2.ShadowModels
 {
