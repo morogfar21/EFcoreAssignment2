@@ -61,14 +61,18 @@ namespace Assignment2.Services
             {
                 foreach (var restaurant in restaurants)
                 {
-                    Console.Write($"Restaurant - Name: {restaurant.Name} ");
+                    Console.Write($"Restaurant - Name: {restaurant.Name}, ");
                     foreach (var dish in restaurant.RestaurantDishes)
                     {
-                        Console.Write($"Dishes: {string.Join(", ", restaurant.RestaurantDishes)} ");
-                        Console.Write($"Price: {string.Join(", ", dish.Dish.Price)} ");
+                        //Console.Write($"Dishes: {string.Join(", ", dish.Dish)} ");
+                        Console.Write($"Dish and price: {dish.Dish.Name} - ");
+                        Console.Write($"{dish.Dish.Price}$, ");
+                        //Console.Write($"Price: {string.Join(", ", dish.Dish.Price)} ");
                     }
-                    Console.WriteLine($"Average rating: {restaurant.Reviews}");
+                    double avgReview = CalculateAverageRating(restaurant.Reviews);
+                    Console.WriteLine($"Average rating: {avgReview}");
                 }
+
                 //Console.WriteLine(string.Join(",", restaurants));
             }
         }
