@@ -149,6 +149,67 @@ namespace Assignment2.Services
         #endregion
 
         #region Frands
+        public static Table CreateTable(AppDbContext context)
+        {
+            Restaurant restaurant = Find.FindRestaurant(context);
+            Waiter waiter = Find.FindWaiter(context);
+
+
+            Console.Write("Number of table: ");
+            int number = int.Parse(Console.ReadLine());
+
+            Table table = new Table()
+            {
+                Number = number,
+                Restaurant = restaurant
+            };
+
+            if (waiter != null)
+            {
+                table.WaiterTables = new List<WaiterTable>()
+                {
+                    new WaiterTable()
+                    {
+                        Waiter = waiter,
+                        Table = table
+                    }
+                };
+            }
+
+            return table;
+        }
+
+        public static Waiter CreateWaiter(AppDbContext context)
+        {
+            Table table = Find.FindTable(context);
+
+            Console.Write("Name of waiter: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Salary: ");
+            int salary = int.Parse(Console.ReadLine());
+
+            Waiter waiter = new Waiter()
+            {
+                Name = name,
+                Salary = salary
+            };
+
+            if (table != null)
+            {
+                waiter.WaiterTables = new List<WaiterTable>()
+                {
+                    new WaiterTable()
+                    {
+                        Waiter = waiter,
+                        Table = table
+                    }
+                };
+            }
+
+            return waiter;
+        }
+
         #endregion
     }
 }
