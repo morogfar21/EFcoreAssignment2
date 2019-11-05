@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Assignment2.Models;
 using Assignment2.ShadowModels;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +13,9 @@ namespace Assignment2
         {
             optionsBuilder.UseSqlServer("Data Source=Localhost;Initial Catalog=DAB2;Integrated Security=True");
         }
+
+        //For FindRestaurant method
+        public DbSet<Restaurant> Restaurants { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
