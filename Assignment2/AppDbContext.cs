@@ -15,7 +15,8 @@ namespace Assignment2
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // RestaurantDish (many to many)
+            #region RestaurantDishManyToMany
+
             modelBuilder.Entity<RestaurantDish>()
                 .HasOne(rd => rd.Restaurant)
                 .WithMany(r => r.RestaurantDishes)
@@ -24,6 +25,7 @@ namespace Assignment2
                 .HasOne(rd => rd.Dish)
                 .WithMany(d => d.RestaurantDishes)
                 .HasForeignKey(rd => rd.DishType);
+            #endregion
 
             #region GuestDish
 
