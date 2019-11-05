@@ -65,7 +65,8 @@ namespace Assignment2.Services
         public static Table CreateTable(AppDbContext context)
         {
             Restaurant restaurant = Find.FindRestaurant(context);
-            Waiter waiter = Find.FindWaiter()
+            Waiter waiter = Find.FindWaiter(context);
+
 
             Console.Write("Number of table: ");
             int number = int.Parse(Console.ReadLine());
@@ -76,16 +77,52 @@ namespace Assignment2.Services
                 Restaurant = restaurant
             };
 
+            if (waiter != null)
+            {
+                table.WaiterTables = new List<WaiterTable>()
+                {
+                    new WaiterTable()
+                    {
+                        Waiter = waiter,
+                        Table = table
+                    }
+                };
+            }
 
-
-            //[Key]
-            //public int Number { get; set; }
-            //public List<WaiterTable> WaiterTables { get; set; }
-            //[Required]
-            //public Restaurant Restaurant { get; set; }
-            //public List<Guest> Guests { get; set; }
-            
+            return table;
         }
+
+        public static Waiter CreateWaiter(AppDbContext context)
+        {
+            Table table = Find.FindTable(context);
+
+            Console.Write("Name of waiter: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Salary: ");
+            int salary = int.Parse(Console.ReadLine());
+
+            Waiter waiter = new Waiter()
+            {
+                Name = name,
+                Salary = salary
+            };
+
+            if (table != null)
+            {
+                waiter.WaiterTables = new List<WaiterTable>()
+                {
+                    new WaiterTable()
+                    {
+                        Waiter = waiter,
+                        Table = table
+                    }
+                };
+            }
+
+            return waiter;
+        }
+
         #endregion
     }
 }
