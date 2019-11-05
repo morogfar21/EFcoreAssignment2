@@ -8,7 +8,7 @@ namespace Assignment2.Models
     {
         [Key]
         public int Number { get; set; }
-        public WaiterTable WaiterTable { get; set; }
+        public List<WaiterTable> WaiterTables { get; set; }
         [Required]
         public Restaurant Restaurant { get; set; }
         public List<Guest> Guests { get; set; }
