@@ -14,9 +14,13 @@ namespace Assignment2
             optionsBuilder.UseSqlServer("Data Source=Localhost;Initial Catalog=DAB2;Integrated Security=True");
         }
 
-        //For FindRestaurant method
+        public DbSet<Dish> Dishes { get; set; }
+        public DbSet<Guest> Guests { get; set; }
+        public DbSet<Person> Persons { get; set; }
         public DbSet<Restaurant> Restaurants { get; set; }
-
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Table> Tables { get; set; }
+        public DbSet<Waiter> Waiters { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region RestaurantDishManyToMany

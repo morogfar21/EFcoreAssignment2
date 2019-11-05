@@ -22,6 +22,15 @@ namespace Assignment2.Services
         #endregion
 
         #region Henrik
+
+        public static Review FindReview(AppDbContext context)
+        {
+            Console.WriteLine("Review Id: ");
+            int reviewId = int.Parse(Console.ReadLine());
+
+            return context.
+        }
+
         #endregion
 
         #region Frands
