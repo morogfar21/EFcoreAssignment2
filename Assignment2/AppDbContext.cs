@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Assignment2.ShadowModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Assignment2
@@ -14,14 +15,22 @@ namespace Assignment2
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            #region GuestDish
+
+            modelBuilder.Entity<GuestDish>()
+                .HasOne(gd => gd.Guest)
+                .WithMany(d => d.GuestDishes)
+                .HasForeignKey(gd => gd.GuestName);
+            modelBuilder.Entity<GuestDish>()
+                .HasOne(gd => gd.Dish)
+                .WithMany(d => d.GuestDishes)
+                .HasForeignKey(d => d.DishType);
+
+            #endregion
+
 
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-
-        }
     }
     
 
