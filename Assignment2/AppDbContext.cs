@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Assignment2
 {
-    class AppDbContext : DbContext
+    public class AppDbContext : DbContext
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
