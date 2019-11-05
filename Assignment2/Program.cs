@@ -15,8 +15,6 @@ namespace Assignment2
             #region Henrik
             #endregion
 
-            #region Frands
-            #endregion
 
             Console.WriteLine("Indtast navnet på restauranten");
             Console.ReadLine();
