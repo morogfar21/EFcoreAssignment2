@@ -17,7 +17,7 @@ namespace Assignment2.ShadowModels
         public Guest Guest { get; set; }
 
         public string GuestName { get; set; }
-        public string DishType { get; set; }
+        public string DishName { get; set; }
 
     }
 }

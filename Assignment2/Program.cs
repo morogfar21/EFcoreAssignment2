@@ -19,7 +19,6 @@ namespace Assignment2
             #region Henrik
 
             #endregion
-
             #region Frands
 
             #endregion

@@ -36,12 +36,37 @@ namespace Assignment2.Services
             Console.WriteLine("Review Id: ");
             int reviewId = int.Parse(Console.ReadLine());
 
-            return context.
+            return context.Reviews.Where(r => r.ReviewId == reviewId).Single();
+        }
+
+        public static Guest FindGuest(AppDbContext context)
+        {
+            Console.WriteLine("Guest Name: ");
+            var name = Console.ReadLine();
+
+            return context.Guests.Where(g => g.Name == name).Single();
         }
 
         #endregion
 
         #region Frands
+
+        public static Waiter FindWaiter(AppDbContext context)
+        {
+            Console.Write("Waiter name: ");
+            string name = Console.ReadLine();
+
+            return context.Waiters.Where(w => w.Name == name).Single();
+        }
+
+        public static Table FindTable(AppDbContext context)
+        {
+            Console.Write("Number of table: ");
+            int number = int.Parse(Console.ReadLine());
+
+            return context.Tables.Where(w => w.Number == number).Single();
+        }
+
         #endregion
     }
 }
