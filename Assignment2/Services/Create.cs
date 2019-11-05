@@ -99,22 +99,51 @@ namespace Assignment2.Services
 
         public static Dish CreateDish(AppDbContext context)
         {
-            Review review = Find.FindReview(context);
+            var review = Find.FindReview(context);
+            var restaurant = Find.FindRestaurant(context);
+            var guest = Find.FindGuest(context);
+
+            Console.WriteLine("Input Dish Name: ");
+            var name = Console.ReadLine();
 
             Console.WriteLine("Input Type: ");
-            string type = Console.ReadLine();
+            var type = Console.ReadLine();
 
             Console.WriteLine("Input Price: ");
-            int price = int.Parse(Console.ReadLine());
+            var price = int.Parse(Console.ReadLine());
 
-            return new Dish()
+            Dish dish = new Dish()
             {
-                    Type = type,
-                    Price = price,
-                    Review = review,
+                Name = name,
+                Type = type,
+                Price = price,
+            };
 
-
+            if (restaurant != null)
+            {
+                dish.RestaurantDishes = new List<RestaurantDish>()
+                {
+                    new RestaurantDish()
+                    {
+                        Restaurant = restaurant,
+                        Dish = dish,
+                    }
+                };
             }
+
+            if (guest != null)
+            {
+                dish.GuestDishes = new List<GuestDish>()
+                {
+                    new GuestDish()
+                    {
+                        Guest = guest,
+                        Dish = dish,
+                    }
+                };
+            }
+
+            return dish;
         }
 
         #endregion

@@ -39,7 +39,7 @@ namespace Assignment2.Services
             return context.Reviews.Where(r => r.ReviewId == reviewId).Single();
         }
 
-        public static Restaurant FindGuest(AppDbContext context)
+        public static Guest FindGuest(AppDbContext context)
         {
             Console.WriteLine("Guest Name: ");
             var name = Console.ReadLine();
