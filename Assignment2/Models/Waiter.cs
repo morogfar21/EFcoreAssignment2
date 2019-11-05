@@ -1,4 +1,5 @@
-﻿using Assignment2.ShadowModels;
+﻿using System.Collections.Generic;
+using Assignment2.ShadowModels;
 
 namespace Assignment2.Models
 {
