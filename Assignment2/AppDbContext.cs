@@ -24,7 +24,7 @@ namespace Assignment2
             modelBuilder.Entity<GuestDish>()
                 .HasOne(gd => gd.Dish)
                 .WithMany(d => d.GuestDishes)
-                .HasForeignKey(d => d.DishType);
+                .HasForeignKey(gd => gd.DishType);
 
             #endregion
 
