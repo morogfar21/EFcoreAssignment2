@@ -12,8 +12,10 @@ namespace Assignment2.Services
         #endregion
 
         #region Bertram
-        public static Restaurant CreateRestaurant()
+        public static Restaurant CreateRestaurant(AppDbContext context)
         {
+            Dish dish = Find.FindDish(context);
+
             Console.Write("Name of restaurant: ");
             string name = Console.ReadLine();
 
@@ -23,12 +25,25 @@ namespace Assignment2.Services
             Console.Write("Restaurant address: ");
             string address = Console.ReadLine();
             
-            return new Restaurant()
+            Restaurant restaurant = new Restaurant()
             {
                 Name = name,
                 Type = type,
                 Address = address
             };
+
+            if (dish != null)
+            {
+                restaurant.RestaurantDishes = new List<RestaurantDish>()
+                {
+                    new RestaurantDish()
+                    {
+                        ResturantAddress = address,
+                        DishType = type
+                    }
+                };
+            }
+            return restaurant;
         }
 
         public static Review CreateReview(AppDbContext context)

@@ -19,6 +19,14 @@ namespace Assignment2.Services
 
             return context.Restaurants.Where(r => r.Address == address).Single();
         }
+
+        public static Dish FindDish(AppDbContext context)
+        {
+            Console.Write("Write Dish-type: ");
+            string type = Console.ReadLine();
+
+            return context.Dishes.Where(d => d.Type == type).Single();
+        }
         #endregion
 
         #region Henrik
