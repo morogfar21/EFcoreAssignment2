@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Assignment2.ShadowModels;
 
 namespace Assignment2.Models
 {
@@ -9,10 +10,13 @@ namespace Assignment2.Models
         public string Type { get; set; }
 
         //One to Many
-        private List<Review> Restaurants { get; set; }
+        public List<Review> Restaurants { get; set; }
 
         //One to Many
-        private List<Table> Tables { get; set; }
+        public List<Table> Tables { get; set; }
+
+        //Many to Many
+        public List<RestaurantDish> RestaurantDishes { get; set; }
 
         //[Column(TypeName = "Breakfast"),
         //Column(TypeName = "Dinner")]

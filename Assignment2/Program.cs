@@ -6,6 +6,18 @@ namespace Assignment2
     {
         static void Main(string[] args)
         {
+            #region Marcus
+            #endregion
+
+            #region Bertram
+            #endregion
+
+            #region Henrik
+            #endregion
+
+            #region Frands
+            #endregion
+
             Console.WriteLine("Indtast navnet på restauranten");
             Console.ReadLine();
         }
