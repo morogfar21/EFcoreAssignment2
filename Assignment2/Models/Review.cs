@@ -7,7 +7,7 @@ namespace Assignment2.Models
     {
         public int ReviewId { get; set; }
         public string Text { get; set; }
-        public int Stars { get; set; }
+        public double Stars { get; set; }
 
         //Many to One
         [Required]
