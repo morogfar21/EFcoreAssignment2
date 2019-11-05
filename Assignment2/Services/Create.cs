@@ -38,11 +38,24 @@ namespace Assignment2.Services
 
         #region Henrik
 
-        public static Dish CreateDish(MyDbContext context)
+        public static Dish CreateDish(AppDbContext context)
         {
             Review review = Find.FindReview(context);
 
-            
+            Console.WriteLine("Input Type: ");
+            string type = Console.ReadLine();
+
+            Console.WriteLine("Input Price: ");
+            int price = int.Parse(Console.ReadLine());
+
+            return new Dish()
+            {
+                    Type = type,
+                    Price = price,
+                    Review = review,
+
+
+            }
         }
 
         #endregion

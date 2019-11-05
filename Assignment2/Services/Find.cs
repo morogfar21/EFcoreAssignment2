@@ -28,7 +28,15 @@ namespace Assignment2.Services
             Console.WriteLine("Review Id: ");
             int reviewId = int.Parse(Console.ReadLine());
 
-            return context.
+            return context.Reviews.Where(r => r.ReviewId == reviewId).Single();
+        }
+
+        public static Restaurant FindGuest(AppDbContext context)
+        {
+            Console.WriteLine("Guest Name: ");
+            var name = Console.ReadLine();
+
+            return context.Guests.Where(g => g.Name == name).Single();
         }
 
         #endregion

@@ -7,15 +7,16 @@ namespace Assignment2.Models
 {
     public class Dish
     {
-        [Key]
-        public string Type { get; set; }
 
+        [Key]
+        public string Name { get; set; }
+
+        [Required]
+        public string Type { get; set; }
         [Required]
         public float Price { get; set; }
-
         [Required]
         public Review Review { get; set; }
-
         public List<RestaurantDish> RestaurantDishes { get; set; }
         public List<GuestDish> GuestDishes { get; set; }
 
