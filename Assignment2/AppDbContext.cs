@@ -16,7 +16,6 @@ namespace Assignment2
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region GuestDish
-
             modelBuilder.Entity<GuestDish>()
                 .HasOne(gd => gd.Guest)
                 .WithMany(d => d.GuestDishes)
