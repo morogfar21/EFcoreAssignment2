@@ -45,6 +45,12 @@ namespace Assignment2.Services
         #endregion
 
         #region Henrik
+
+        public static Dish CreateDish(MyDbContext context)
+        {
+            Review review = FindReview(context);
+        }
+
         #endregion
 
         #region Frands
