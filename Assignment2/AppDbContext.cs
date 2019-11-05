@@ -27,6 +27,8 @@ namespace Assignment2
                 .HasForeignKey(gd => gd.DishType);
             #endregion
 
+            #region WaiterTable
+
             modelBuilder.Entity<WaiterTable>()
                 .HasOne(wt => wt.Waiter)
                 .WithMany(w => w.WaiterTables)
@@ -35,7 +37,7 @@ namespace Assignment2
                 .HasOne(wt => wt.Table)
                 .WithMany(t => t.WaiterTables)
                 .HasForeignKey(wt => wt.TableNumber);
-
+            #endregion
         }
 
     }
