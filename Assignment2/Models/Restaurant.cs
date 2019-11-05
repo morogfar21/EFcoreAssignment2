@@ -10,7 +10,7 @@ namespace Assignment2.Models
         public string Type { get; set; }
 
         //One to Many
-        public List<Review> Restaurants { get; set; }
+        public List<Review> Reviews { get; set; }
 
         //One to Many
         public List<Table> Tables { get; set; }
