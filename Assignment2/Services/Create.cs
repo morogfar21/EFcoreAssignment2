@@ -11,6 +11,29 @@ namespace Assignment2.Services
         #endregion
 
         #region Bertram
+        public static Restaurant CreateRestaurant()
+        {
+            Console.Write("Name of restaurant: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Type (Breakfast, Dinner, Buffet...): ");
+            string type = Console.ReadLine();
+
+            Console.Write("Restaurant address: ");
+            string address = Console.ReadLine();
+            
+            return new Restaurant()
+            {
+                Name = name,
+                Type = type,
+                Address = address
+            };
+        }
+
+        public static Review CreateReview()
+        {
+
+        }
         #endregion
 
         #region Henrik

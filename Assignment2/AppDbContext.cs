@@ -21,7 +21,6 @@ namespace Assignment2
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Table> Tables { get; set; }
         public DbSet<Waiter> Waiters { get; set; }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region RestaurantDishManyToMany
