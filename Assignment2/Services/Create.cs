@@ -9,7 +9,7 @@ namespace Assignment2.Services
     public static class Create
     {
         #region Marcus
-        /*
+        
         public static Person CreatePerson (AppDbContext context)
         {
             Console.Write("FirstName: ");
@@ -29,16 +29,19 @@ namespace Assignment2.Services
             Console.Write("FirstName: ");
             string firstName = Console.ReadLine();
 
-            Person person = new Person()
+            DateTime time = DateTime.Now;
+            Console.WriteLine(time);
+
+            Guest guest= new Guest()
             {
                 Name = firstName,
             };
-            return person;
+            return guest;
 
             //public List<GuestDish> GuestDishes;
             // public int Time;
         }
-        */
+        
         #endregion
 
         #region Bertram
