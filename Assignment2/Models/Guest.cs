@@ -12,6 +12,9 @@ namespace Assignment2.Models
         public Review Review{ get; set; }
         [Required]
         public int Time { get; set; }
-        public struct DateTime{ }
+
+        public struct DateTime
+        {
+        };
     }
 }
