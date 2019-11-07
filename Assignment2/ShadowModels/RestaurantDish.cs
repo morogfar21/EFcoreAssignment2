@@ -19,6 +19,6 @@ namespace Assignment2.ShadowModels
         [Required]
         public string RestaurantAddress { get; set; }
         [Required]
-        public string DishType { get; set; }
+        public string Name { get; set; }
     }
 }

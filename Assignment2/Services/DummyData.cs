@@ -2,8 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Assignment2.Models;
 using Assignment2.ShadowModels;
+using System.Linq;
 
 namespace Assignment2.Services
 {
@@ -55,7 +55,7 @@ namespace Assignment2.Services
             string[] restaurantTypeArray = { "Breakfast", "Dinner", "Supper"};
             Random rand1 = new Random();
             int randomIndex1 = rand1.Next(restaurantTypeArray.Length);
-            
+
 
             string[] dishTypeArray = { "Appertice", "MainCourse", "Dessert", "Snack" };
             Random rand2 = new Random();
@@ -66,7 +66,9 @@ namespace Assignment2.Services
             {
                 string restaurantType = restaurantTypeArray[randomIndex1];
                 string dishType = dishTypeArray[randomIndex2];
-                
+
+                Dish dish = context.Dishes.Where(d => d.Type == dishType).Single();
+
                 Restaurant restaurant = new Restaurant()
                 {
                     Name = name+i,
@@ -74,16 +76,29 @@ namespace Assignment2.Services
                     Address = address+i
                 };
 
-                restaurant.RestaurantDishes = new List<RestaurantDish>()
+                if (dish != null)
                 {
-                    new RestaurantDish()
+                    restaurant.RestaurantDishes = new List<RestaurantDish>()
                     {
-                        RestaurantAddress = address+i,
-                        DishType = dishType
-                    }
-                };
+                        new RestaurantDish()
+                        {
+                            Restaurant = restaurant,
+                            Dish = dish
+                        }
+                    };
+                }
                 context.Restaurants.Add(restaurant);
             }
+        }
+
+        public void InsertDummyReview(AppDbContext context, string text, int stars)
+        {
+            Review review = new Review()
+            {
+                Text = text,
+                Stars = stars
+            };
+            context.Reviews.Add(review);
         }
         #endregion
 

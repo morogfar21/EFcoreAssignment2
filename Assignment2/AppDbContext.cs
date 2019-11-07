@@ -33,7 +33,7 @@ namespace Assignment2
             modelBuilder.Entity<RestaurantDish>()
                 .HasOne(rd => rd.Dish)
                 .WithMany(d => d.RestaurantDishes)
-                .HasForeignKey(rd => rd.DishType);
+                .HasForeignKey(rd => rd.Name);
             #endregion
 
             #region GuestDish
