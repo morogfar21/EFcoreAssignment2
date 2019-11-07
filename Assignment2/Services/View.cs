@@ -52,11 +52,33 @@ namespace Assignment2.Services
         //(restaurant addr) -> menu - dishes, price, avg rating
         public static void ListRestaurantGeneralInformation(AppDbContext context)
         {
+            Restaurant res = Find.FindRestaurant(context);
 
+            List<Restaurant> restaurants = context.Restaurants.
+                Include(d => d.RestaurantDishes).ThenInclude(rd => rd.Dish).ToList();
+
+            if (res != null)
+            {
+                foreach (var restaurant in restaurants)
+                {
+                    Console.Write($"Restaurant - Name: {restaurant.Name}, ");
+                    foreach (var dish in restaurant.RestaurantDishes)
+                    {
+                        //Console.Write($"Dishes: {string.Join(", ", dish.Dish)} ");
+                        Console.Write($"Dish and price: {dish.Dish.Name} - ");
+                        Console.Write($"{dish.Dish.Price}$, ");
+                        //Console.Write($"Price: {string.Join(", ", dish.Dish.Price)} ");
+                    }
+                    double avgReview = CalculateAverageRating(restaurant.Reviews);
+                    Console.WriteLine($"Average rating: {avgReview}");
+                }
+
+                //Console.WriteLine(string.Join(",", restaurants));
+            }
         }
 
-        //(restaurant addr) -> information about guests reviews for dishes based on table.
-        public static void ListRestaurantBasedOnTableReviews(AppDbContext context, string address)
+        //(restaurant addr) -> information about guests reviews for dishes based on table. 
+        public static void ListRestaurantBasedOnTableReviews(AppDbContext context)
         {
             List<Table> tables = context.Tables.ToList();
 
