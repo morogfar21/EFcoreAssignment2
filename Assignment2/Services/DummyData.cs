@@ -22,11 +22,11 @@ namespace Assignment2.Services
             InsertDummyRestaurant(context, "Restaurant", "Address", amountOfData);
 
             //Inserting Waiters
-            InsertDummyWaiters(context, name:"Waiter", salary: 10 , 7);
+            InsertDummyWaiters(context, name:"Waiter", salary: 10 , amountOfData);
             //Inserting Guests
 
             //Inserting Reviews
-            InsertDummyReview(context, "Text", 10, 5);
+            InsertDummyReview(context, "Text", amountOfData, amountOfData);
             //Inserting Tables
 
             context.SaveChanges();
