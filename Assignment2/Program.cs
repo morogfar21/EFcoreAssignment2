@@ -33,6 +33,8 @@ namespace Assignment2
                 System.Console.WriteLine("\nView Query: \nqr(Restaurants general information)\nqv(Restaurants based on table reviews)\nqt(Restaurants by type");
                 System.Console.WriteLine("\nExit: x");
 
+                
+
                 while (true)
                 {
                     System.Console.WriteLine("Type command");
