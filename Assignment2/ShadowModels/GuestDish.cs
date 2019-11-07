@@ -9,14 +9,16 @@ namespace Assignment2.ShadowModels
 {
     public class GuestDish
     {
-        [Key]
+        //[Key]
         public int GuestDishId { get; set; }
-        [Required]
+        
         public Dish Dish { get; set; }
-        [Required]
+        
         public Guest Guest { get; set; }
 
+        [Required]
         public string GuestName { get; set; }
+        [Required]
         public string DishName { get; set; }
 
     }

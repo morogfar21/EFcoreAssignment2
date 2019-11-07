@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Assignment2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20191107084207_TestMainMigration")]
-    partial class TestMainMigration
+    [Migration("20191107104628_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -132,9 +132,11 @@ namespace Assignment2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("DishType");
+                    b.Property<string>("DishType")
+                        .IsRequired();
 
-                    b.Property<string>("RestaurantAddress");
+                    b.Property<string>("RestaurantAddress")
+                        .IsRequired();
 
                     b.HasKey("RestaurantDishId");
 
@@ -147,11 +149,18 @@ namespace Assignment2.Migrations
 
             modelBuilder.Entity("Assignment2.ShadowModels.WaiterTable", b =>
                 {
+                    b.Property<int>("WaiterTableId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
                     b.Property<int>("TableNumber");
 
-                    b.Property<string>("WaiterName");
+                    b.Property<string>("WaiterName")
+                        .IsRequired();
 
-                    b.HasKey("TableNumber");
+                    b.HasKey("WaiterTableId");
+
+                    b.HasIndex("TableNumber");
 
                     b.HasIndex("WaiterName");
 
@@ -218,18 +227,20 @@ namespace Assignment2.Migrations
                     b.HasOne("Assignment2.Models.Guest", "Guest")
                         .WithMany("GuestDishes")
                         .HasForeignKey("GuestName")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Assignment2.ShadowModels.RestaurantDish", b =>
                 {
                     b.HasOne("Assignment2.Models.Dish", "Dish")
                         .WithMany("RestaurantDishes")
-                        .HasForeignKey("DishType");
+                        .HasForeignKey("DishType")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Assignment2.Models.Restaurant", "Restaurant")
                         .WithMany("RestaurantDishes")
-                        .HasForeignKey("RestaurantAddress");
+                        .HasForeignKey("RestaurantAddress")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Assignment2.ShadowModels.WaiterTable", b =>
@@ -241,7 +252,8 @@ namespace Assignment2.Migrations
 
                     b.HasOne("Assignment2.Models.Waiter", "Waiter")
                         .WithMany("WaiterTables")
-                        .HasForeignKey("WaiterName");
+                        .HasForeignKey("WaiterName")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Assignment2.Models.Guest", b =>

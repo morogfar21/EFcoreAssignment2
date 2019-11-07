@@ -8,9 +8,11 @@ namespace Assignment2.ShadowModels
 {
     public class WaiterTable
     {
-        [Key]
-        public int TableNumber { get; set; }
+        public int WaiterTableId { get; set; }
 
+        [Required]
+        public int TableNumber { get; set; }
+        [Required]
         public string WaiterName { get; set; }
 
         public Waiter Waiter { get; set; }
