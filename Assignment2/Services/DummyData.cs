@@ -13,38 +13,35 @@ namespace Assignment2.Services
         public void InsertAllDummyData(AppDbContext context,int amountOfData)
         {
             //Inserting Dishes
-            InsertDummyDishes(context,"Breakfast",0, amountOfData);
-            InsertDummyDishes(context, "Dinner", 10, amountOfData);
-            InsertDummyDishes(context, "Supper", 20, amountOfData);
-            InsertDummyDishes(context, "Snack", 30, amountOfData);
+            InsertDummyDishes(context,amountOfData);
 
             //Inserting Restaurants
-            InsertDummyRestaurant(context, "Restaurant", "Address", amountOfData);
+            InsertDummyRestaurant(context, amountOfData);
 
+            //Inserting Reviews
+            InsertDummyReview(context, "Review text says this", amountOfData, amountOfData);
+
+            //Inserting Tables
             //Inserting Waiters
             InsertDummyWaiters(context, amountOfData);
             //Inserting Guests
             InsertDummyGuest(context, "Guest", amountOfData, 5, 5);
-
-            //Inserting Reviews
-            InsertDummyReview(context, "Text", amountOfData, amountOfData);
-
-            //Inserting Tables
-
             context.SaveChanges();
         }
         #region Henrik
 
-        public void InsertDummyDishes(AppDbContext context,string type, float price, int numberOfDishes)
+        public void InsertDummyDishes(AppDbContext context, int numberOfDishes)
         {
+            string[] dishTypeArray = { "Appertice", "MainCourse", "Dessert", "Snack" };
+            Random randDishType = new Random();
 
             for (int i = 0; i < numberOfDishes; i++)
             {
                 var dish = new Dish();
 
                 dish.Name = "Dish" + i;
-                dish.Type = type;
-                dish.Price = price + i;
+                dish.Type = dishTypeArray[randDishType.Next(dishTypeArray.Length - 1)];
+                dish.Price = 10 * i;
                 
                 var restaurant = context.Restaurants.Where(r => r.Address == ("Adress" + i)).Single();
                 
@@ -87,30 +84,26 @@ namespace Assignment2.Services
         #endregion
 
         #region Bertram
-        public void InsertDummyRestaurant(AppDbContext context, string name, /*string restaurantType*/ /*string dishType,*/ string address, int numberOfRestaurants)
+        public void InsertDummyRestaurant(AppDbContext context, int numberOfRestaurants)
         {
             string[] restaurantTypeArray = { "Breakfast", "Dinner", "Supper"};
             Random rand1 = new Random();
-            int randomIndex1 = rand1.Next(restaurantTypeArray.Length);
-
 
             string[] dishTypeArray = { "Appertice", "MainCourse", "Dessert", "Snack" };
             Random rand2 = new Random();
-            int randomIndex2 = rand2.Next(dishTypeArray.Length);
-
 
             for (int i = 0; i < numberOfRestaurants; i++)
             {
-                string restaurantType = restaurantTypeArray[randomIndex1];
-                string dishType = dishTypeArray[randomIndex2];
+                string restaurantType = restaurantTypeArray[rand1.Next(restaurantTypeArray.Length-1)];
+                string dishType = dishTypeArray[rand2.Next(dishTypeArray.Length-1)];
 
                 Dish dish = context.Dishes.Where(d => d.Type == dishType).Single();
 
                 Restaurant restaurant = new Restaurant()
                 {
-                    Name = name+i,
+                    Name = "Restaurant" + i,
                     Type = restaurantType,
-                    Address = address+i
+                    Address = "Address" + i
                 };
 
                 if (dish != null)
