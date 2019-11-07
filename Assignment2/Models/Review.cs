@@ -13,10 +13,10 @@ namespace Assignment2.Models
         [Required]
         public Restaurant Restaurant { get; set; }
 
-        //One to Many
+        [Required]
         public List<Guest> Guests { get; set; }
 
-        //One to Many
+        [Required]
         public List<Dish> Dishes { get; set; }
     }
 }
