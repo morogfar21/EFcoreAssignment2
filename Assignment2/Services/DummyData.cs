@@ -11,10 +11,22 @@ namespace Assignment2.Services
     {
         public void InsertAllDummyData(AppDbContext context)
         {
+            //Inserting Dishes
             InsertDummyDishes(context,"Breakfast",0,10);
             InsertDummyDishes(context, "Dinner", 10, 10);
             InsertDummyDishes(context, "Supper", 20, 10);
             InsertDummyDishes(context, "Snack", 30, 10);
+
+            //Inserting Restaurants
+            InsertDummyRestaurant(context, "Restaurant", "Address", 5);
+
+            //Inserting Waiters
+
+            //Inserting Guests
+
+            //Inserting Reviews
+
+            //Inserting Tables
         }
         #region Henrik
 
@@ -38,19 +50,27 @@ namespace Assignment2.Services
         #endregion
 
         #region Bertram
-        public void InsertDummyRestaurant(AppDbContext context, string name, string restaurantType, /*string dishType,*/ string address, int numberOfRestaurants)
+        public void InsertDummyRestaurant(AppDbContext context, string name, /*string restaurantType*/ /*string dishType,*/ string address, int numberOfRestaurants)
         {
-            string[] typeArray = { "Breakfast", "Dinner", "Supper", "Snack" };
-            Random rand = new Random();
-            int randomIndex = rand.Next(typeArray.Length);
-            string dishType = typeArray[randomIndex];
+            string[] restaurantTypeArray = { "Breakfast", "Dinner", "Supper"};
+            Random rand1 = new Random();
+            int randomIndex1 = rand1.Next(restaurantTypeArray.Length);
+            
+
+            string[] dishTypeArray = { "Appertice", "MainCourse", "Dessert", "Snack" };
+            Random rand2 = new Random();
+            int randomIndex2 = rand2.Next(dishTypeArray.Length);
+
 
             for (int i = 0; i < numberOfRestaurants; i++)
             {
+                string restaurantType = restaurantTypeArray[randomIndex1];
+                string dishType = dishTypeArray[randomIndex2];
+                
                 Restaurant restaurant = new Restaurant()
                 {
                     Name = name+i,
-                    Type = restaurantType+i,
+                    Type = restaurantType,
                     Address = address+i
                 };
 
