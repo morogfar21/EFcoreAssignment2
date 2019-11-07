@@ -12,7 +12,7 @@ namespace Assignment2.Models
         [Required]
         public Review Review{ get; set; }
         [Required]
-        public int Time { get; set; }
+        public string Time { get; set; }
         
     }
 }
