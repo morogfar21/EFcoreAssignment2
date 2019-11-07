@@ -21,7 +21,7 @@ namespace Assignment2.Services
             InsertDummyRestaurant(context, "Restaurant", "Address", 5);
 
             //Inserting Waiters
-
+            InsertDummyWaiters(context, name:"Waiter", salary: 10 , 7);
             //Inserting Guests
 
             //Inserting Reviews
@@ -124,6 +124,22 @@ namespace Assignment2.Services
         #endregion
 
         #region Marcus
+        public void InsertDummyWaiters(AppDbContext context, string name,int salary /*int tablenumber*/, int numberOfwaiters)
+        {
+
+            for (int i = 0; i < numberOfwaiters; i++)
+            {
+                var waiter = new Waiter();
+                //var tablenumber = new WaiterTable();
+
+                waiter.Name = name + i.ToString();
+                waiter.Salary = salary;
+                //tablenumber = "table" + i.
+                context.Waiters.Add(waiter);
+                //context.Tables.Add(tablenumber);
+            }
+
+        }
         #endregion
     }
 }
