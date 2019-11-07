@@ -9,14 +9,14 @@ namespace Assignment2.Services
     public static class Find
     {
         #region Marcus
-        public static Restaurant FindGuest(AppDbContext context)
+        /*public static Guest FindGuest(AppDbContext context)
         {
-            Console.Write("Guest Name: ");
-            string gname = Console.ReadLine();
+            Console.Write("Time of review dd:mm:yyyy : ");
+            int time = int.Parse(Console.ReadLine());
 
-            return context.Guests.Where(g => g.Name == gname).Single();
-        }
-        public static Restaurant FindPerson(AppDbContext context)
+            return context.Guests.Where(g => g.Time == time).Single();
+        }*/
+        public static Person FindPerson(AppDbContext context)
         {
             Console.Write("Person Name: ");
             string name = Console.ReadLine();
