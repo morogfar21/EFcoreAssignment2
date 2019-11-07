@@ -151,28 +151,52 @@ namespace Assignment2.Services
 
         public void InsertDummyGuest(AppDbContext context, string name, int numberOfGuestsToAdd, int numberOfRestaurantsToAddGuestsTo, int numberOfTablesToAddGuestsTo)
         {
-            for (int i = 0; i < numberOfRestaurantsToAddGuestsTo; i++)
+            //for (int i = 0; i < numberOfRestaurantsToAddGuestsTo; i++)
+            //{
+            //    Restaurant restaurant = context.Restaurants.Where(r => r.Address == "Address" + i).Single();
+
+            //    for (int j = 0; j < numberOfTablesToAddGuestsTo; j++)
+            //    {
+            //        Table table = context.Tables.Where(t => t.Number == j).Single();
+
+            //        for (int k = 0; k < numberOfGuestsToAdd; k++)
+            //        {
+            //            if (restaurant != null && table != null)
+            //            {
+            //                Guest guest = new Guest()
+            //                {
+            //                    Name = name+k+"R"+i,
+            //                    Time = "01:01:2000",
+            //                    Table = table
+            //                };
+            //            }
+            //        }
+            //    }
+            //}
+
+            var restaurants = context.Restaurants;
+            var tables = context.Tables;
+            int guestCount = 0;
+
+            foreach (var r in restaurants)
             {
-                Restaurant restaurant = context.Restaurants.Where(r => r.Address == "Address" + i).Single();
-
-                for (int j = 0; j < numberOfTablesToAddGuestsTo; j++)
+                foreach (var t in tables)
                 {
-                    Table table = context.Tables.Where(t => t.Number == j).Single();
-
-                    for (int k = 0; k < numberOfGuestsToAdd; k++)
+                    for (int i = 0; i < numberOfGuestsToAdd; i++)
                     {
-                        if (restaurant != null && table != null)
+                        var guest = new Guest()
                         {
-                            Guest guest = new Guest()
-                            {
-                                Name = name+k+"R"+i,
-                                Time = "01:01:2000",
-                                Table = table
-                            };
-                        }
+                            Name = "Guest" + guestCount,
+                            Time = "01:01:2000",
+                            Table = t
+                        };
+                        t.Guests.Add(guest);
+                        context.Guests.Add(guest);
+                        guestCount++;
                     }
                 }
             }
+
         }
         #endregion
 
