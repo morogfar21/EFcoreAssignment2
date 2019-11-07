@@ -1,6 +1,7 @@
 ﻿using Assignment2.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Assignment2.Models;
 using Assignment2.ShadowModels;
@@ -9,11 +10,16 @@ namespace Assignment2.Services
 {
     public class DummyData
     {
+        private List<Restaurant> _restaurants;
+        private List<Dish> _dishes;
+
         public void InsertAllDummyData(AppDbContext context)
         {
-            InsertDummyDishes(context,"Breakfast",0,10);
-            InsertDummyDishes(context, "Dinner", 10, 10);
-            InsertDummyDishes(context, "Supper", 20, 10);
+            _restaurants = new List<Restaurant>();
+            _dishes = new List<Dish>();
+            InsertDummyDishes(context,"Appertice",0,10);
+            InsertDummyDishes(context, "MainCourse", 10, 10);
+            InsertDummyDishes(context, "Dessert", 20, 10);
             InsertDummyDishes(context, "Snack", 30, 10);
         }
         #region Henrik
@@ -28,10 +34,29 @@ namespace Assignment2.Services
                 dish.Name = "Dish" + i.ToString();
                 dish.Type = type;
                 dish.Price = price + i;
+                
+                var restaurant = context.Restaurants.Where(r => r.Address == ("Adress" + i)).Single();
+                
+                if (restaurant != null)
+                {
+                    dish.RestaurantDishes = new List<RestaurantDish>()
+                    {
+                        new RestaurantDish()
+                        {
+                            Restaurant = restaurant,
+                            Dish = dish,
+                        }
+                    };
+                }
                 context.Dishes.Add(dish);
             }
+
+            
             
         }
+
+
+        public void InsertDummyReview(AppDbContext context, string )
         #endregion
 
         #region Frands
