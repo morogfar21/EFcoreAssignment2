@@ -18,10 +18,6 @@ namespace Assignment2.Models
         //Many to Many
         public List<RestaurantDish> RestaurantDishes { get; set; }
 
-        //[Column(TypeName = "Breakfast"),
-        //Column(TypeName = "Dinner")]
-        //[Column(TypeName = "Dinner")]
-        //[Column(TypeName = "Buffet")]
         [Key]
         public string Address { get; set; }
     }
