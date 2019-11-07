@@ -7,5 +7,6 @@ namespace Assignment2.Models
     {
         public int Salary { get; set; }
         public List<WaiterTable> WaiterTables { get; set; }
+        
     }
 }

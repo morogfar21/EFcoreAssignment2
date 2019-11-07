@@ -22,7 +22,7 @@ namespace Assignment2.Services
             InsertDummyRestaurant(context, "Restaurant", "Address", amountOfData);
 
             //Inserting Waiters
-            InsertDummyWaiters(context, name:"Waiter", salary: 10 , amountOfData);
+            InsertDummyWaiters(context, amountOfData);
             //Inserting Guests
 
             //Inserting Reviews
@@ -61,35 +61,19 @@ namespace Assignment2.Services
             }
         }
 
-        public void InsertDummyTable(AppDbContext context, int numberOfRestaurants, int numberOfTables)
+        public void InsertDummyTable(AppDbContext context, int numberOfTables)
         {
-            for (var i = 0; i < numberOfRestaurants; i++)
+            var restaurants = context.Restaurants;
+            foreach (var r in restaurants)
             {
-                var restaurant = context.Restaurants.Where(r => r.Address == ("Adress" + i)).Single();
-                if (restaurant == null)
-                    return;
-
-                for (var index = 0; index < numberOfTables; index++)
+                for (int i = 0; i < numberOfTables; i++)
                 {
                     var table = new Table()
                     {
-                        Number = index+1,
-                        Restaurant = restaurant
+                        Number = i,
+                        Restaurant = r
                     };
-                    restaurant.Tables.Add(new Table());
-
-                    var waiter = context.Waiters.Where(w => w.Name == "Waiter" + index).Single();
-                    if (waiter != null)
-                    {
-                        table.WaiterTables = new List<WaiterTable>();
-                        {
-                            new WaiterTable()
-                            {
-                                Waiter = waiter,
-                                Table = table
-                            };
-                        }
-                    }
+                    r.Tables.Add(table);
                     context.Tables.Add(table);
                 }
             }
@@ -174,34 +158,32 @@ namespace Assignment2.Services
         #endregion
 
         #region Marcus
-        public void InsertDummyWaiters(AppDbContext context, string name,int salary /*int tablenumber*/, int numberOfwaiters)
+        public void InsertDummyWaiters(AppDbContext context, int numberOfWaiters)
         {
-            //Table table = context.Tables.Where(t => t.WaiterTables == Table).Single();
+            var tables = context.Tables;
+            int waiterCount = 0;
 
-            for (int i = 0; i < numberOfwaiters; i++)
+            foreach (var t in tables)
             {
-                var waiter = new Waiter();
-                //var tablenumber = new WaiterTable();
-
-                waiter.Name = name + i;
-                waiter.Salary = salary;
-                //tablenumber = "table" + i.
-                context.Waiters.Add(waiter);
-                //context.Tables.Add(tablenumber);
-            }
-
-            /*if (table != null)
-            {
-                Table. = new List<WaiterTable>()
+                for (int i = 0; i < numberOfWaiters; i++)
                 {
-                    new RestaurantDish()
+                    var waiter = new Waiter()
                     {
-                        Restaurant = restaurant,
-                        Dish = dish
-                    }
-                };
+                        Name = "Waiter"+ waiterCount,
+                        Salary = waiterCount * 100
+                    };
+                    waiter.WaiterTables = new List<WaiterTable>()
+                    {
+                        new WaiterTable()
+                        {
+                            Waiter = waiter,
+                            Table = t
+                        }
+                    };
+                    context.Waiters.Add(waiter);
+                    waiterCount++;
+                }
             }
-            */
         }
         #endregion
     }
