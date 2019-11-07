@@ -38,9 +38,8 @@ namespace Assignment2.Services
                 //Date savenow = DateTime.Now
             };
             return guest;
+            //return now;
 
-            //public List<GuestDish> GuestDishes;
-            // public int Time;
         }
         
         #endregion
