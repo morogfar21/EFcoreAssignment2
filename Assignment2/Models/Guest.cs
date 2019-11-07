@@ -11,8 +11,9 @@ namespace Assignment2.Models
 
         [Required]
         public Review Review{ get; set; }
-        //public int Time { get; set; }
         [Required]
-        public DateTime time;
+        public int Time { get; set; }
+        //[Required]
+        //public DateTime time;
     }
 }

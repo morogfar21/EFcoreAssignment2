@@ -12,30 +12,27 @@ namespace Assignment2.Services
         
         public static Person CreatePerson (AppDbContext context)
         {
-            Console.Write("FirstName: ");
-            string firstName = Console.ReadLine();
+            Console.Write("Name: ");
+            string name = Console.ReadLine();
 
             Person person = new Person()
             {
-                Name = firstName,
+                Name = name
             };
             return person;
 
-            //public List<GuestDish> GuestDishes;
-            // public int Time;
         }
         public static Guest CreateGuest(AppDbContext context)
         {
-            Console.Write("FirstName: ");
-            string firstName = Console.ReadLine();
+            Console.Write("Time and date of restaurant visit(dd:mm:yyyy : ");
+            int time = int.Parse(Console.ReadLine());
 
-            DateTime time = new DateTime();
+            //DateTime time = new DateTime();
             //Console.WriteLine(time);
 
             Guest guest= new Guest()
             {
-                Name = firstName,
-                time= DateTime.Now
+                Time = time
             };
             return guest;
             //return now;
