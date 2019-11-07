@@ -6,6 +6,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20191031095129_InitialCreate.cs" />
+    <Compile Remove="Migrations\20191031095129_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20191105073438_ClassesMade.cs" />
+    <Compile Remove="Migrations\20191105073438_ClassesMade.Designer.cs" />
+    <Compile Remove="Migrations\20191107084207_TestMainMigration.cs" />
+    <Compile Remove="Migrations\20191107084207_TestMainMigration.Designer.cs" />
+    <Compile Remove="Migrations\20191107100244_ChangedGuestDish.cs" />
+    <Compile Remove="Migrations\20191107100244_ChangedGuestDish.Designer.cs" />
+    <Compile Remove="Migrations\20191107101722_AddedRequiedToRestaurantDish.cs" />
+    <Compile Remove="Migrations\20191107101722_AddedRequiedToRestaurantDish.Designer.cs" />
+    <Compile Remove="Migrations\20191107103316_HopefullyFixedError.cs" />
+    <Compile Remove="Migrations\20191107103316_HopefullyFixedError.Designer.cs" />
+    <Compile Remove="Migrations\20191107104146_InitialCreate.cs" />
+    <Compile Remove="Migrations\20191107104146_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20191107104351_InitialCreate.cs" />
+    <Compile Remove="Migrations\20191107104351_InitialCreate.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.6">

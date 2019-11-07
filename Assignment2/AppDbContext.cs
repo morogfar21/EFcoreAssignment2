@@ -28,7 +28,8 @@ namespace Assignment2
             modelBuilder.Entity<RestaurantDish>()
                 .HasOne(rd => rd.Restaurant)
                 .WithMany(r => r.RestaurantDishes)
-                .HasForeignKey(rd => rd.RestaurantAddress);
+                .HasForeignKey(rd => rd.RestaurantAddress)
+                .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<RestaurantDish>()
                 .HasOne(rd => rd.Dish)
                 .WithMany(d => d.RestaurantDishes)
@@ -39,11 +40,13 @@ namespace Assignment2
             modelBuilder.Entity<GuestDish>()
                 .HasOne(gd => gd.Guest)
                 .WithMany(g => g.GuestDishes)
-                .HasForeignKey(gd => gd.GuestName);
+                .HasForeignKey(gd => gd.GuestName)
+                .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<GuestDish>()
                 .HasOne(gd => gd.Dish)
                 .WithMany(d => d.GuestDishes)
-                .HasForeignKey(gd => gd.DishName);
+                .HasForeignKey(gd => gd.DishName)
+                ;
             #endregion
 
             #region WaiterTable
@@ -51,7 +54,8 @@ namespace Assignment2
             modelBuilder.Entity<WaiterTable>()
                 .HasOne(wt => wt.Waiter)
                 .WithMany(w => w.WaiterTables)
-                .HasForeignKey(wt => wt.WaiterName);
+                .HasForeignKey(wt => wt.WaiterName)
+                .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<WaiterTable>()
                 .HasOne(wt => wt.Table)
                 .WithMany(t => t.WaiterTables)

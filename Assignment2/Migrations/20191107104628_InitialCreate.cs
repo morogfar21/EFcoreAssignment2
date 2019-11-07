@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Assignment2.Migrations
 {
-    public partial class TestMainMigration : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -114,8 +114,8 @@ namespace Assignment2.Migrations
                 {
                     RestaurantDishId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    RestaurantAddress = table.Column<string>(nullable: true),
-                    DishType = table.Column<string>(nullable: true)
+                    RestaurantAddress = table.Column<string>(nullable: false),
+                    DishType = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -125,7 +125,7 @@ namespace Assignment2.Migrations
                         column: x => x.DishType,
                         principalTable: "Dishes",
                         principalColumn: "Name",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_RestaurantDish_Restaurants_RestaurantAddress",
                         column: x => x.RestaurantAddress,
@@ -157,19 +157,21 @@ namespace Assignment2.Migrations
                         column: x => x.GuestName,
                         principalTable: "Persons",
                         principalColumn: "Name",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "WaiterTable",
                 columns: table => new
                 {
+                    WaiterTableId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     TableNumber = table.Column<int>(nullable: false),
-                    WaiterName = table.Column<string>(nullable: true)
+                    WaiterName = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_WaiterTable", x => x.TableNumber);
+                    table.PrimaryKey("PK_WaiterTable", x => x.WaiterTableId);
                     table.ForeignKey(
                         name: "FK_WaiterTable_Tables_TableNumber",
                         column: x => x.TableNumber,
@@ -228,6 +230,11 @@ namespace Assignment2.Migrations
                 name: "IX_Tables_RestaurantAddress",
                 table: "Tables",
                 column: "RestaurantAddress");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WaiterTable_TableNumber",
+                table: "WaiterTable",
+                column: "TableNumber");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WaiterTable_WaiterName",
