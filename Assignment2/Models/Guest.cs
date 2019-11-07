@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Assignment2.ShadowModels;
 
@@ -10,11 +11,8 @@ namespace Assignment2.Models
 
         [Required]
         public Review Review{ get; set; }
+        //public int Time { get; set; }
         [Required]
-        public int Time { get; set; }
-
-        public struct DateTime
-        {
-        };
+        public DateTime time;
     }
 }

@@ -29,13 +29,13 @@ namespace Assignment2.Services
             Console.Write("FirstName: ");
             string firstName = Console.ReadLine();
 
-            DateTime now = new DateTime();
+            DateTime time = new DateTime();
             //Console.WriteLine(time);
 
             Guest guest= new Guest()
             {
                 Name = firstName,
-                //Date savenow = DateTime.Now
+                time= DateTime.Now
             };
             return guest;
             //return now;
