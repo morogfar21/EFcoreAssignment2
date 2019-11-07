@@ -9,7 +9,7 @@ namespace Assignment2.Services
     public static class Create
     {
         #region Marcus
-        
+        /*
         public static Person CreatePerson (AppDbContext context)
         {
             Console.Write("Name: ");
@@ -22,6 +22,7 @@ namespace Assignment2.Services
             return person;
 
         }
+        */
         public static Guest CreateGuest(AppDbContext context)
         {
             Console.Write("Guest name: ");
