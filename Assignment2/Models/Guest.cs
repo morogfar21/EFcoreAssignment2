@@ -9,7 +9,7 @@ namespace Assignment2.Models
     {
         public List<GuestDish> GuestDishes { get; set; }
 
-        [Required]
+
         public Review Review{ get; set; }
         [Required]
         public string Time { get; set; }

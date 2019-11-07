@@ -26,7 +26,7 @@ namespace Assignment2.Migrations
 
                     b.Property<float>("Price");
 
-                    b.Property<int>("ReviewId");
+                    b.Property<int?>("ReviewId");
 
                     b.Property<string>("Type")
                         .IsRequired();
@@ -89,14 +89,16 @@ namespace Assignment2.Migrations
 
             modelBuilder.Entity("Assignment2.Models.Table", b =>
                 {
-                    b.Property<int>("Number")
+                    b.Property<int>("TableId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Number");
 
                     b.Property<string>("RestaurantAddress")
                         .IsRequired();
 
-                    b.HasKey("Number");
+                    b.HasKey("TableId");
 
                     b.HasIndex("RestaurantAddress");
 
@@ -130,7 +132,7 @@ namespace Assignment2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("DishType")
+                    b.Property<string>("Name")
                         .IsRequired();
 
                     b.Property<string>("RestaurantAddress")
@@ -138,7 +140,7 @@ namespace Assignment2.Migrations
 
                     b.HasKey("RestaurantDishId");
 
-                    b.HasIndex("DishType");
+                    b.HasIndex("Name");
 
                     b.HasIndex("RestaurantAddress");
 
@@ -169,15 +171,16 @@ namespace Assignment2.Migrations
                 {
                     b.HasBaseType("Assignment2.Models.Person");
 
-                    b.Property<int>("ReviewId");
+                    b.Property<int?>("ReviewId");
 
-                    b.Property<int?>("TableNumber");
+                    b.Property<int?>("TableId");
 
-                    b.Property<int>("Time");
+                    b.Property<string>("Time")
+                        .IsRequired();
 
                     b.HasIndex("ReviewId");
 
-                    b.HasIndex("TableNumber");
+                    b.HasIndex("TableId");
 
                     b.HasDiscriminator().HasValue("Guest");
                 });
@@ -195,8 +198,7 @@ namespace Assignment2.Migrations
                 {
                     b.HasOne("Assignment2.Models.Review", "Review")
                         .WithMany("Dishes")
-                        .HasForeignKey("ReviewId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ReviewId");
                 });
 
             modelBuilder.Entity("Assignment2.Models.Review", b =>
@@ -232,7 +234,7 @@ namespace Assignment2.Migrations
                 {
                     b.HasOne("Assignment2.Models.Dish", "Dish")
                         .WithMany("RestaurantDishes")
-                        .HasForeignKey("DishType")
+                        .HasForeignKey("Name")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Assignment2.Models.Restaurant", "Restaurant")
@@ -258,12 +260,11 @@ namespace Assignment2.Migrations
                 {
                     b.HasOne("Assignment2.Models.Review", "Review")
                         .WithMany("Guests")
-                        .HasForeignKey("ReviewId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("ReviewId");
 
-                    b.HasOne("Assignment2.Models.Table")
+                    b.HasOne("Assignment2.Models.Table", "Table")
                         .WithMany("Guests")
-                        .HasForeignKey("TableNumber");
+                        .HasForeignKey("TableId");
                 });
 #pragma warning restore 612, 618
         }

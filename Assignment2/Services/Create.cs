@@ -52,6 +52,8 @@ namespace Assignment2.Services
         #region Bertram
         public static Restaurant CreateRestaurant(AppDbContext context)
         {
+            Review review = new Review();
+
             Dish dish = Find.FindDish(context);
 
             Console.Write("Name of restaurant: ");
