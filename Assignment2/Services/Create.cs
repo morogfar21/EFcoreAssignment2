@@ -25,22 +25,26 @@ namespace Assignment2.Services
         */
         public static Guest CreateGuest(AppDbContext context)
         {
+            Table table = Find.FindTable(context);
+
             Console.Write("Guest name: ");
             var name = Console.ReadLine();
 
             Console.Write("date of restaurant visit(dd:mm:yyyy) : ");
             var time = Console.ReadLine();
 
-            //DateTime time = new DateTime();
-            //Console.WriteLine(time);
-
-            Guest guest= new Guest()
+            Guest guest = new Guest()
             {
                 Name = name,
                 Time = time
             };
-            return guest;
 
+            if (table != null)
+            {
+                guest.Table = table;
+            }
+
+            return guest;
         }
         
         #endregion
@@ -212,7 +216,6 @@ namespace Assignment2.Services
                     }
                 };
             }
-
             return waiter;
         }
 

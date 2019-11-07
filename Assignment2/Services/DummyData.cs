@@ -24,9 +24,11 @@ namespace Assignment2.Services
             //Inserting Waiters
             InsertDummyWaiters(context, amountOfData);
             //Inserting Guests
+            InsertDummyGuest(context, "Guest", amountOfData, 5, 5);
 
             //Inserting Reviews
             InsertDummyReview(context, "Text", amountOfData, amountOfData);
+
             //Inserting Tables
 
             context.SaveChanges();
@@ -154,7 +156,31 @@ namespace Assignment2.Services
             }
         }
 
+        public void InsertDummyGuest(AppDbContext context, string name, int numberOfGuestsToAdd, int numberOfRestaurantsToAddGuestsTo, int numberOfTablesToAddGuestsTo)
+        {
+            for (int i = 0; i < numberOfRestaurantsToAddGuestsTo; i++)
+            {
+                Restaurant restaurant = context.Restaurants.Where(r => r.Address == "Address" + i).Single();
 
+                for (int j = 0; j < numberOfTablesToAddGuestsTo; j++)
+                {
+                    Table table = context.Tables.Where(t => t.Number == j).Single();
+
+                    for (int k = 0; k < numberOfGuestsToAdd; k++)
+                    {
+                        if (restaurant != null && table != null)
+                        {
+                            Guest guest = new Guest()
+                            {
+                                Name = name+k+"R"+i,
+                                Time = "01:01:2000",
+                                Table = table
+                            };
+                        }
+                    }
+                }
+            }
+        }
         #endregion
 
         #region Marcus
