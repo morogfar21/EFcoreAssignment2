@@ -13,10 +13,12 @@ namespace Assignment2.Models
 
         [Required]
         public string Type { get; set; }
+
         [Required]
         public float Price { get; set; }
-        [Required]
+
         public Review Review { get; set; }
+
         public List<RestaurantDish> RestaurantDishes { get; set; }
         public List<GuestDish> GuestDishes { get; set; }
 
