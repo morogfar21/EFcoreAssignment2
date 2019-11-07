@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mime;
-using System.Linq;
 using System.Text;
 using Assignment2.Models;
 using Microsoft.EntityFrameworkCore;
-using Assignment2.Models;
 
 namespace Assignment2.Services
 {
