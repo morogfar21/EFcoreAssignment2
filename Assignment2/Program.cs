@@ -58,11 +58,12 @@ namespace Assignment2
                             context.SaveChanges();
                             break;
 
-                        case "p":
+                        /*case "p":
                             Person person = Create.CreatePerson(context);
                             context.Persons.Add(person);
                             context.SaveChanges();
                             break;
+                            */
 
                         case "v":
                             Review review = Create.CreateReview(context);
