@@ -202,7 +202,7 @@ namespace Assignment2.Services
         #region Marcus
         public void InsertDummyWaiters(AppDbContext context, string name,int salary /*int tablenumber*/, int numberOfwaiters)
         {
-            //Table table = context.Tables.Where(t => t.WaiterTables == Table).Single();
+            //Table table = context.Tables.Where(t => t.WaiterTables == "Table").Single();
 
             for (int i = 0; i < numberOfwaiters; i++)
             {
@@ -218,15 +218,43 @@ namespace Assignment2.Services
 
             /*if (table != null)
             {
-                Table. = new List<WaiterTable>()
+                Table = new List<WaiterTable>()
                 {
-                    new RestaurantDish()
+                    new WaiterTable()
                     {
-                        Restaurant = restaurant,
-                        Dish = dish
+                        Table = Table,
+                        Waiter = Waiter
                     }
                 };
             }
+            */
+        }
+
+        public void InsertDummyGuests(AppDbContext context, string name, string time, int numberOfguests)
+        {
+            //Review review = context.Reviews.Where(r => r.ReviewId == Review).Single();
+
+            for (int i = 0; i < numberOfguests; i++)
+            {
+                var guest = new Guest();
+
+                guest.Name = name + i;
+                guest.Time = time;
+                context.Guests.Add(guest);
+                
+            }
+
+           // Restaurant restaurant = context.Restaurants.Where(r => r.Address == "Address").Single();
+            /*
+                if (restaurant != null)
+                {
+                    Review review = new Review()
+                    {
+                        Text = text + i,
+                        Stars = stars,
+                        Restaurant = restaurant
+                    };
+                }
             */
         }
         #endregion
