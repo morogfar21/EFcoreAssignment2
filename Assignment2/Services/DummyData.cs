@@ -22,10 +22,12 @@ namespace Assignment2.Services
 
             //Inserting Waiters
             InsertDummyWaiters(context, name:"Waiter", salary: 10 , 7);
+
             //Inserting Guests
 
             //Inserting Reviews
             InsertDummyReview(context, "Text", 10, 5);
+
             //Inserting Tables
 
             context.SaveChanges();
