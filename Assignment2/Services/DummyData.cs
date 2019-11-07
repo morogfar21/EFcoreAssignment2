@@ -12,20 +12,23 @@ namespace Assignment2.Services
     {
         public void InsertAllDummyData(AppDbContext context,int amountOfData)
         {
-            //Inserting Dishes
-            InsertDummyDishes(context,amountOfData);
-
             //Inserting Restaurants
             InsertDummyRestaurant(context, amountOfData);
 
-            //Inserting Reviews
-            InsertDummyReview(context, "Review text says this", amountOfData, amountOfData);
-
             //Inserting Tables
+            InsertDummyTable(context,amountOfData);
+
+            //Inserting Dishes
+            InsertDummyDishes(context, amountOfData);
+
             //Inserting Waiters
             InsertDummyWaiters(context, amountOfData);
             //Inserting Guests
-            InsertDummyGuest(context, "Guest", amountOfData, 5, 5);
+            InsertDummyGuest(context, amountOfData);
+
+            //Inserting Reviews
+            InsertDummyReview(context,amountOfData);
+
             context.SaveChanges();
         }
         #region Henrik
@@ -121,8 +124,33 @@ namespace Assignment2.Services
             }
         }
 
-        public void InsertDummyReview(AppDbContext context, string text, int numberOfReviews, int numberOfRestaurantsToReview)
+        public void InsertDummyReview(AppDbContext context, int numberOfReviews )//int numberOfRestaurantsToReview)
         {
+            var restaurants = context.Restaurants;
+            var guests = context.Guests;
+            int reviewNumber = 0;
+            Random rand = new Random();
+            foreach (var r in restaurants)
+            {
+                foreach (var t in r.Tables)
+                {
+                    var review = new Review();
+                    review.Restaurant = r;
+                    review.Guests = t.Guests;
+                    foreach (var g in review.Guests)
+                    {
+                        foreach (var gd in g.GuestDishes)
+                        {
+                            review.Dishes.Add(gd.Dish);
+                        }
+                    }
+
+                    review.Text = "Text for review" + reviewNumber++;
+                    review.Stars = rand.Next(1, 5);
+                }
+            }
+
+            /*
             int[] numStarsArray = { 1,2,3,4,5 };
             Random rand = new Random();
             int randomIndex = rand.Next(numStarsArray.Length);
@@ -146,10 +174,10 @@ namespace Assignment2.Services
                         context.Reviews.Add(review);
                     }
                 }
-            }
+            }*/
         }
 
-        public void InsertDummyGuest(AppDbContext context, string name, int numberOfGuestsToAdd, int numberOfRestaurantsToAddGuestsTo, int numberOfTablesToAddGuestsTo)
+        public void InsertDummyGuest(AppDbContext context,  int numberOfGuestsToAdd)
         {
             //for (int i = 0; i < numberOfRestaurantsToAddGuestsTo; i++)
             //{

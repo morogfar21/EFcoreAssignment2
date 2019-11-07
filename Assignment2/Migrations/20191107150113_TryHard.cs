@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Assignment2.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class TryHard : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,13 +45,14 @@ namespace Assignment2.Migrations
                 name: "Tables",
                 columns: table => new
                 {
-                    Number = table.Column<int>(nullable: false)
+                    TableId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Number = table.Column<int>(nullable: false),
                     RestaurantAddress = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tables", x => x.Number);
+                    table.PrimaryKey("PK_Tables", x => x.TableId);
                     table.ForeignKey(
                         name: "FK_Tables_Restaurants_RestaurantAddress",
                         column: x => x.RestaurantAddress,
@@ -67,7 +68,7 @@ namespace Assignment2.Migrations
                     Name = table.Column<string>(nullable: false),
                     Type = table.Column<string>(nullable: false),
                     Price = table.Column<float>(nullable: false),
-                    ReviewId = table.Column<int>(nullable: false)
+                    ReviewId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -77,7 +78,7 @@ namespace Assignment2.Migrations
                         column: x => x.ReviewId,
                         principalTable: "Reviews",
                         principalColumn: "ReviewId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -87,8 +88,8 @@ namespace Assignment2.Migrations
                     Name = table.Column<string>(nullable: false),
                     Discriminator = table.Column<string>(nullable: false),
                     ReviewId = table.Column<int>(nullable: true),
-                    Time = table.Column<int>(nullable: true),
-                    TableNumber = table.Column<int>(nullable: true),
+                    Time = table.Column<string>(nullable: true),
+                    TableId = table.Column<int>(nullable: true),
                     Salary = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -99,12 +100,12 @@ namespace Assignment2.Migrations
                         column: x => x.ReviewId,
                         principalTable: "Reviews",
                         principalColumn: "ReviewId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Persons_Tables_TableNumber",
-                        column: x => x.TableNumber,
+                        name: "FK_Persons_Tables_TableId",
+                        column: x => x.TableId,
                         principalTable: "Tables",
-                        principalColumn: "Number",
+                        principalColumn: "TableId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -115,14 +116,14 @@ namespace Assignment2.Migrations
                     RestaurantDishId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     RestaurantAddress = table.Column<string>(nullable: false),
-                    DishType = table.Column<string>(nullable: false)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RestaurantDish", x => x.RestaurantDishId);
                     table.ForeignKey(
-                        name: "FK_RestaurantDish_Dishes_DishType",
-                        column: x => x.DishType,
+                        name: "FK_RestaurantDish_Dishes_Name",
+                        column: x => x.Name,
                         principalTable: "Dishes",
                         principalColumn: "Name",
                         onDelete: ReferentialAction.Cascade);
@@ -176,7 +177,7 @@ namespace Assignment2.Migrations
                         name: "FK_WaiterTable_Tables_TableNumber",
                         column: x => x.TableNumber,
                         principalTable: "Tables",
-                        principalColumn: "Number",
+                        principalColumn: "TableId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_WaiterTable_Persons_WaiterName",
@@ -207,14 +208,14 @@ namespace Assignment2.Migrations
                 column: "ReviewId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Persons_TableNumber",
+                name: "IX_Persons_TableId",
                 table: "Persons",
-                column: "TableNumber");
+                column: "TableId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RestaurantDish_DishType",
+                name: "IX_RestaurantDish_Name",
                 table: "RestaurantDish",
-                column: "DishType");
+                column: "Name");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RestaurantDish_RestaurantAddress",
