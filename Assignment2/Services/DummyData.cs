@@ -195,7 +195,7 @@ namespace Assignment2.Services
                         {
                             Name = "Guest" + guestCount,
                             Time = "01:01:2000",
-                            Table = t
+                            Table = t,
                         };
                         t.Guests.Add(guest);
                         context.Guests.Add(guest);
