@@ -10,16 +10,16 @@ namespace Assignment2.Services
 {
     public class DummyData
     {
-        public void InsertAllDummyData(AppDbContext context)
+        public void InsertAllDummyData(AppDbContext context,int amountOfData)
         {
             //Inserting Dishes
-            InsertDummyDishes(context,"Breakfast",0,10);
-            InsertDummyDishes(context, "Dinner", 10, 10);
-            InsertDummyDishes(context, "Supper", 20, 10);
-            InsertDummyDishes(context, "Snack", 30, 10);
+            InsertDummyDishes(context,"Breakfast",0, amountOfData);
+            InsertDummyDishes(context, "Dinner", 10, amountOfData);
+            InsertDummyDishes(context, "Supper", 20, amountOfData);
+            InsertDummyDishes(context, "Snack", 30, amountOfData);
 
             //Inserting Restaurants
-            InsertDummyRestaurant(context, "Restaurant", "Address", 5);
+            InsertDummyRestaurant(context, "Restaurant", "Address", amountOfData);
 
             //Inserting Waiters
 
@@ -28,6 +28,7 @@ namespace Assignment2.Services
             //Inserting Reviews
 
             //Inserting Tables
+            InsertDummyTable(context, amountOfData, amountOfData);
         }
         #region Henrik
 
@@ -38,7 +39,7 @@ namespace Assignment2.Services
             {
                 var dish = new Dish();
 
-                dish.Name = "Dish" + i.ToString();
+                dish.Name = "Dish" + i;
                 dish.Type = type;
                 dish.Price = price + i;
                 
@@ -57,13 +58,42 @@ namespace Assignment2.Services
                 }
                 context.Dishes.Add(dish);
             }
-
-            
-            
         }
 
+        public void InsertDummyTable(AppDbContext context, int numberOfRestaurants, int numberOfTables)
+        {
+            for (var i = 0; i < numberOfRestaurants; i++)
+            {
+                var restaurant = context.Restaurants.Where(r => r.Address == ("Adress" + i)).Single();
+                if (restaurant == null)
+                    return;
 
-        public void InsertDummyReview(AppDbContext context, string )
+                for (var index = 0; index < numberOfTables; index++)
+                {
+                    var table = new Table()
+                    {
+                        Number = index+1,
+                        Restaurant = restaurant
+                    };
+                    restaurant.Tables.Add(new Table());
+
+                    var waiter = context.Waiters.Where(w => w.Name == "Waiter" + index).Single();
+                    if (waiter != null)
+                    {
+                        table.WaiterTables = new List<WaiterTable>();
+                        {
+                            new WaiterTable()
+                            {
+                                Waiter = waiter,
+                                Table = table
+                            };
+                        }
+                    }
+                    context.Tables.Add(table);
+                }
+            }
+        }
+
         #endregion
 
         #region Frands
