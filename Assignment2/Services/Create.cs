@@ -88,21 +88,39 @@ namespace Assignment2.Services
 
         public static Review CreateReview(AppDbContext context)
         {
+            Review review = new Review();
             Restaurant restaurant = Find.FindRestaurant(context);
 
+            if (restaurant == null)
+            {
+               review.Restaurant = CreateRestaurant(context);
+            }
+
+            Console.WriteLine("How many guests ate?: ");
+            string numOfGuests = Console.ReadLine();
+
+            for (int i = 0; i < Int32.Parse(numOfGuests); i++)
+            {
+                review.Guests.Add(CreateGuest(context));
+            }
+
             Console.Write("Text in review: ");
-            string text = Console.ReadLine();
+            review.Text = Console.ReadLine();
 
             Console.Write("Stars: ");
-            double stars = double.Parse(Console.ReadLine());
+            review.Stars = double.Parse(Console.ReadLine());
 
-            return new Review()
+            foreach (var g in review.Guests)
             {
-                Text = text,
-                Stars = stars,
-                Restaurant = restaurant
-            };
+                foreach (var gd in g.GuestDishes)
+                {
+                    review.Dishes.Add(gd.Dish);
+                }
+            }
+            
+            return review;
         }
+
         #endregion
 
         #region Henrik
