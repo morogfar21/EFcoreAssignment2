@@ -14,5 +14,6 @@ namespace Assignment2.Models
         [Required]
         public string Time { get; set; }
         
+        public Table Table { get; set; }
     }
 }
