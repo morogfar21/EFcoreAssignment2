@@ -1,6 +1,7 @@
 ﻿using Assignment2.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Assignment2.ShadowModels;
 using System.Linq;
@@ -9,25 +10,23 @@ namespace Assignment2.Services
 {
     public class DummyData
     {
-        public void InsertAllDummyData(AppDbContext context)
+        public void InsertAllDummyData(AppDbContext context,int amountOfData)
         {
             //Inserting Dishes
-            InsertDummyDishes(context,"Breakfast",0,10);
-            InsertDummyDishes(context, "Dinner", 10, 10);
-            InsertDummyDishes(context, "Supper", 20, 10);
-            InsertDummyDishes(context, "Snack", 30, 10);
+            InsertDummyDishes(context,"Breakfast",0, amountOfData);
+            InsertDummyDishes(context, "Dinner", 10, amountOfData);
+            InsertDummyDishes(context, "Supper", 20, amountOfData);
+            InsertDummyDishes(context, "Snack", 30, amountOfData);
 
             //Inserting Restaurants
-            InsertDummyRestaurant(context, "Restaurant", "Address", 5);
+            InsertDummyRestaurant(context, "Restaurant", "Address", amountOfData);
 
             //Inserting Waiters
-            InsertDummyWaiters(context, name:"Waiter", salary: 10 , 7);
-
+            InsertDummyWaiters(context, name:"Waiter", salary: 10 , amountOfData);
             //Inserting Guests
 
             //Inserting Reviews
-            InsertDummyReview(context, "Text", 10, 5);
-
+            InsertDummyReview(context, "Text", amountOfData, amountOfData);
             //Inserting Tables
 
             context.SaveChanges();
@@ -41,12 +40,61 @@ namespace Assignment2.Services
             {
                 var dish = new Dish();
 
-                dish.Name = "Dish" + i.ToString();
+                dish.Name = "Dish" + i;
                 dish.Type = type;
                 dish.Price = price + i;
+                
+                var restaurant = context.Restaurants.Where(r => r.Address == ("Adress" + i)).Single();
+                
+                if (restaurant != null)
+                {
+                    dish.RestaurantDishes = new List<RestaurantDish>()
+                    {
+                        new RestaurantDish()
+                        {
+                            Restaurant = restaurant,
+                            Dish = dish,
+                        }
+                    };
+                }
                 context.Dishes.Add(dish);
             }
         }
+
+        public void InsertDummyTable(AppDbContext context, int numberOfRestaurants, int numberOfTables)
+        {
+            for (var i = 0; i < numberOfRestaurants; i++)
+            {
+                var restaurant = context.Restaurants.Where(r => r.Address == ("Adress" + i)).Single();
+                if (restaurant == null)
+                    return;
+
+                for (var index = 0; index < numberOfTables; index++)
+                {
+                    var table = new Table()
+                    {
+                        Number = index+1,
+                        Restaurant = restaurant
+                    };
+                    restaurant.Tables.Add(new Table());
+
+                    var waiter = context.Waiters.Where(w => w.Name == "Waiter" + index).Single();
+                    if (waiter != null)
+                    {
+                        table.WaiterTables = new List<WaiterTable>();
+                        {
+                            new WaiterTable()
+                            {
+                                Waiter = waiter,
+                                Table = table
+                            };
+                        }
+                    }
+                    context.Tables.Add(table);
+                }
+            }
+        }
+
         #endregion
 
         #region Frands
@@ -128,19 +176,32 @@ namespace Assignment2.Services
         #region Marcus
         public void InsertDummyWaiters(AppDbContext context, string name,int salary /*int tablenumber*/, int numberOfwaiters)
         {
+            //Table table = context.Tables.Where(t => t.WaiterTables == Table).Single();
 
             for (int i = 0; i < numberOfwaiters; i++)
             {
                 var waiter = new Waiter();
                 //var tablenumber = new WaiterTable();
 
-                waiter.Name = name + i.ToString();
+                waiter.Name = name + i;
                 waiter.Salary = salary;
                 //tablenumber = "table" + i.
                 context.Waiters.Add(waiter);
                 //context.Tables.Add(tablenumber);
             }
 
+            /*if (table != null)
+            {
+                Table. = new List<WaiterTable>()
+                {
+                    new RestaurantDish()
+                    {
+                        Restaurant = restaurant,
+                        Dish = dish
+                    }
+                };
+            }
+            */
         }
         #endregion
     }
