@@ -72,7 +72,7 @@ namespace Assignment2.Services
                 {
                     new RestaurantDish()
                     {
-                        ResturantAddress = address,
+                        RestaurantAddress = address,
                         DishType = type
                     }
                 };

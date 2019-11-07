@@ -28,7 +28,7 @@ namespace Assignment2
             modelBuilder.Entity<RestaurantDish>()
                 .HasOne(rd => rd.Restaurant)
                 .WithMany(r => r.RestaurantDishes)
-                .HasForeignKey(rd => rd.ResturantAddress);
+                .HasForeignKey(rd => rd.RestaurantAddress);
             modelBuilder.Entity<RestaurantDish>()
                 .HasOne(rd => rd.Dish)
                 .WithMany(d => d.RestaurantDishes)

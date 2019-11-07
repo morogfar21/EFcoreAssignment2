@@ -28,10 +28,10 @@ namespace Assignment2
 
             using (var context = new AppDbContext())
             {
-                System.Console.WriteLine("Usage");
-                System.Console.WriteLine("Insert: R(Restaurant), D(Dish), G(Guest), P(Person), V(Review), T(Table), W(Waiter)");
-                //System.Console.WriteLine("Query: qr(Restaurants), qd(Dishes)");
-                System.Console.WriteLine("Exit: x");
+                System.Console.WriteLine("Usage:\n");
+                System.Console.WriteLine("Insertions:\nInsert: \nR(Restaurant)\nD(Dish)\nG(Guest)\nP(Person)\nV(Review)\nT(Table)\nW(Waiter)");
+                System.Console.WriteLine("\nView Query: \nqr(Restaurants general information)\nqv(Restaurants based on table reviews)\nqt(Restaurants by type");
+                System.Console.WriteLine("\nExit: x");
 
                 while (true)
                 {
@@ -82,9 +82,17 @@ namespace Assignment2
                             context.SaveChanges();
                             break;
 
-                        //case "qa":
-                        //    ListAuthors(context);
-                        //    break;
+                        case "qr":
+                            View.ListRestaurantGeneralInformation(context);
+                            break;
+
+                        case "qv": 
+                            View.ListRestaurantBasedOnTableReviews(context);
+                            break;
+
+                        case "qt":
+                            View.ListRestaurantByType(context);
+                            break;
 
                         case "x":
                             System.Console.WriteLine("Exiting....");

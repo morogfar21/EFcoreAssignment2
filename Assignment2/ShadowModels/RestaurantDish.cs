@@ -14,7 +14,7 @@ namespace Assignment2.ShadowModels
         public Dish Dish { get; set; }
 
         //PK binding
-        public string ResturantAddress { get; set; }
+        public string RestaurantAddress { get; set; }
         public string DishType { get; set; }
     }
 }
