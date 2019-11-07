@@ -24,6 +24,9 @@ namespace Assignment2.Services
         }
         public static Guest CreateGuest(AppDbContext context)
         {
+            Console.Write("Guest name: ");
+            string name = Console.ReadLine();
+
             Console.Write("Time and date of restaurant visit(dd:mm:yyyy : ");
             int time = int.Parse(Console.ReadLine());
 
@@ -32,6 +35,7 @@ namespace Assignment2.Services
 
             Guest guest= new Guest()
             {
+                Name = name,
                 Time = time
             };
             return guest;
