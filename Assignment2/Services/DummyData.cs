@@ -105,19 +105,32 @@ namespace Assignment2.Services
         #region Marcus
         public void InsertDummyWaiters(AppDbContext context, string name,int salary /*int tablenumber*/, int numberOfwaiters)
         {
+            //Table table = context.Tables.Where(t => t.WaiterTables == Table).Single();
 
             for (int i = 0; i < numberOfwaiters; i++)
             {
                 var waiter = new Waiter();
                 //var tablenumber = new WaiterTable();
 
-                waiter.Name = name + i.ToString();
+                waiter.Name = name + i;
                 waiter.Salary = salary;
                 //tablenumber = "table" + i.
                 context.Waiters.Add(waiter);
                 //context.Tables.Add(tablenumber);
             }
 
+            /*if (table != null)
+            {
+                Table. = new List<WaiterTable>()
+                {
+                    new RestaurantDish()
+                    {
+                        Restaurant = restaurant,
+                        Dish = dish
+                    }
+                };
+            }
+            */
         }
         #endregion
     }
