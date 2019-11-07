@@ -26,10 +26,10 @@ namespace Assignment2.Services
         public static Guest CreateGuest(AppDbContext context)
         {
             Console.Write("Guest name: ");
-            string name = Console.ReadLine();
+            var name = Console.ReadLine();
 
             Console.Write("Time and date of restaurant visit(dd:mm:yyyy : ");
-            int time = int.Parse(Console.ReadLine());
+            var time = int.Parse(Console.ReadLine());
 
             //DateTime time = new DateTime();
             //Console.WriteLine(time);
@@ -40,7 +40,6 @@ namespace Assignment2.Services
                 Time = time
             };
             return guest;
-            //return now;
 
         }
         
