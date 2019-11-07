@@ -1,6 +1,7 @@
 ﻿using Assignment2.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Assignment2.ShadowModels;
 using System.Linq;
@@ -9,24 +10,26 @@ namespace Assignment2.Services
 {
     public class DummyData
     {
-        public void InsertAllDummyData(AppDbContext context)
+        public void InsertAllDummyData(AppDbContext context,int amountOfData)
         {
             //Inserting Dishes
-            InsertDummyDishes(context,"Breakfast",0,10);
-            InsertDummyDishes(context, "Dinner", 10, 10);
-            InsertDummyDishes(context, "Supper", 20, 10);
-            InsertDummyDishes(context, "Snack", 30, 10);
+            InsertDummyDishes(context,"Breakfast",0, amountOfData);
+            InsertDummyDishes(context, "Dinner", 10, amountOfData);
+            InsertDummyDishes(context, "Supper", 20, amountOfData);
+            InsertDummyDishes(context, "Snack", 30, amountOfData);
 
             //Inserting Restaurants
-            InsertDummyRestaurant(context, "Restaurant", "Address", 5);
+            InsertDummyRestaurant(context, "Restaurant", "Address", amountOfData);
 
             //Inserting Waiters
-            InsertDummyWaiters(context, name:"Waiter", salary: 10 , 7);
+            InsertDummyWaiters(context, name:"Waiter", salary: 10 , amountOfData);
             //Inserting Guests
 
             //Inserting Reviews
-
+            InsertDummyReview(context, "Text", amountOfData, amountOfData);
             //Inserting Tables
+
+            context.SaveChanges();
         }
         #region Henrik
 
@@ -37,13 +40,61 @@ namespace Assignment2.Services
             {
                 var dish = new Dish();
 
-                dish.Name = "Dish" + i.ToString();
+                dish.Name = "Dish" + i;
                 dish.Type = type;
                 dish.Price = price + i;
+                
+                var restaurant = context.Restaurants.Where(r => r.Address == ("Adress" + i)).Single();
+                
+                if (restaurant != null)
+                {
+                    dish.RestaurantDishes = new List<RestaurantDish>()
+                    {
+                        new RestaurantDish()
+                        {
+                            Restaurant = restaurant,
+                            Dish = dish,
+                        }
+                    };
+                }
                 context.Dishes.Add(dish);
             }
-            
         }
+
+        public void InsertDummyTable(AppDbContext context, int numberOfRestaurants, int numberOfTables)
+        {
+            for (var i = 0; i < numberOfRestaurants; i++)
+            {
+                var restaurant = context.Restaurants.Where(r => r.Address == ("Adress" + i)).Single();
+                if (restaurant == null)
+                    return;
+
+                for (var index = 0; index < numberOfTables; index++)
+                {
+                    var table = new Table()
+                    {
+                        Number = index+1,
+                        Restaurant = restaurant
+                    };
+                    restaurant.Tables.Add(new Table());
+
+                    var waiter = context.Waiters.Where(w => w.Name == "Waiter" + index).Single();
+                    if (waiter != null)
+                    {
+                        table.WaiterTables = new List<WaiterTable>();
+                        {
+                            new WaiterTable()
+                            {
+                                Waiter = waiter,
+                                Table = table
+                            };
+                        }
+                    }
+                    context.Tables.Add(table);
+                }
+            }
+        }
+
         #endregion
 
         #region Frands
@@ -91,15 +142,35 @@ namespace Assignment2.Services
             }
         }
 
-        public void InsertDummyReview(AppDbContext context, string text, int stars)
+        public void InsertDummyReview(AppDbContext context, string text, int numberOfReviews, int numberOfRestaurantsToReview)
         {
-            Review review = new Review()
+            int[] numStarsArray = { 1,2,3,4,5 };
+            Random rand = new Random();
+            int randomIndex = rand.Next(numStarsArray.Length);
+
+            for (int index = 0; index < numberOfRestaurantsToReview; index++)
             {
-                Text = text,
-                Stars = stars
-            };
-            context.Reviews.Add(review);
+                Restaurant restaurant = context.Restaurants.Where(r => r.Address == "Address" + index).Single();
+
+                for (int i = 0; i < numberOfReviews; i++)
+                {
+                    int numStars = numStarsArray[randomIndex];
+
+                    if (restaurant != null)
+                    {
+                        Review review = new Review()
+                        {
+                            Text = text + i,
+                            Stars = numStars,
+                            Restaurant = restaurant
+                        };
+                        context.Reviews.Add(review);
+                    }
+                }
+            }
         }
+
+
         #endregion
 
         #region Marcus

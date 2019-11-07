@@ -6,7 +6,7 @@ namespace Assignment2.Models
 {
     public class Table
     {
-        [Key]
+        public int TableId { get; set; }
         public int Number { get; set; }
         public List<WaiterTable> WaiterTables { get; set; }
         [Required]
