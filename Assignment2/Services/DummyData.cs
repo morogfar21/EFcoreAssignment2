@@ -22,13 +22,14 @@ namespace Assignment2.Services
             InsertDummyRestaurant(context, "Restaurant", "Address", amountOfData);
 
             //Inserting Waiters
-
+            InsertDummyWaiters(context, name:"Waiter", salary: 10 , 7);
             //Inserting Guests
 
             //Inserting Reviews
-
+            InsertDummyReview(context, "Text", 10, 5);
             //Inserting Tables
-            InsertDummyTable(context, amountOfData, amountOfData);
+
+            context.SaveChanges();
         }
         #region Henrik
 
@@ -141,18 +142,54 @@ namespace Assignment2.Services
             }
         }
 
-        public void InsertDummyReview(AppDbContext context, string text, int stars)
+        public void InsertDummyReview(AppDbContext context, string text, int numberOfReviews, int numberOfRestaurantsToReview)
         {
-            Review review = new Review()
+            int[] numStarsArray = { 1,2,3,4,5 };
+            Random rand = new Random();
+            int randomIndex = rand.Next(numStarsArray.Length);
+
+            for (int index = 0; index < numberOfRestaurantsToReview; index++)
             {
-                Text = text,
-                Stars = stars
-            };
-            context.Reviews.Add(review);
+                Restaurant restaurant = context.Restaurants.Where(r => r.Address == "Address" + index).Single();
+
+                for (int i = 0; i < numberOfReviews; i++)
+                {
+                    int numStars = numStarsArray[randomIndex];
+
+                    if (restaurant != null)
+                    {
+                        Review review = new Review()
+                        {
+                            Text = text + i,
+                            Stars = numStars,
+                            Restaurant = restaurant
+                        };
+                        context.Reviews.Add(review);
+                    }
+                }
+            }
         }
+
+
         #endregion
 
         #region Marcus
+        public void InsertDummyWaiters(AppDbContext context, string name,int salary /*int tablenumber*/, int numberOfwaiters)
+        {
+
+            for (int i = 0; i < numberOfwaiters; i++)
+            {
+                var waiter = new Waiter();
+                //var tablenumber = new WaiterTable();
+
+                waiter.Name = name + i.ToString();
+                waiter.Salary = salary;
+                //tablenumber = "table" + i.
+                context.Waiters.Add(waiter);
+                //context.Tables.Add(tablenumber);
+            }
+
+        }
         #endregion
     }
 }

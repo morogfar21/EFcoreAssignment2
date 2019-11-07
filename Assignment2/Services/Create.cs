@@ -28,8 +28,8 @@ namespace Assignment2.Services
             Console.Write("Guest name: ");
             var name = Console.ReadLine();
 
-            Console.Write("Time and date of restaurant visit(dd:mm:yyyy : ");
-            var time = int.Parse(Console.ReadLine());
+            Console.Write("date of restaurant visit(dd:mm:yyyy) : ");
+            var time = Console.ReadLine();
 
             //DateTime time = new DateTime();
             //Console.WriteLine(time);
