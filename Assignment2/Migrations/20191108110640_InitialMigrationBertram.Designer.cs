@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Assignment2.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20191108100305_AddingMigration1")]
-    partial class AddingMigration1
+    [Migration("20191108110640_InitialMigrationBertram")]
+    partial class InitialMigrationBertram
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -173,14 +173,14 @@ namespace Assignment2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("TableNumber");
+                    b.Property<int>("TableId");
 
                     b.Property<string>("WaiterName")
                         .IsRequired();
 
                     b.HasKey("WaiterTableId");
 
-                    b.HasIndex("TableNumber");
+                    b.HasIndex("TableId");
 
                     b.HasIndex("WaiterName");
 
@@ -251,7 +251,7 @@ namespace Assignment2.Migrations
                 {
                     b.HasOne("Assignment2.Models.Table", "Table")
                         .WithMany("WaiterTables")
-                        .HasForeignKey("TableNumber")
+                        .HasForeignKey("TableId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Assignment2.Models.Waiter", "Waiter")

@@ -38,11 +38,8 @@ namespace Assignment2
                 //context.Restaurants.Add(new Restaurant { Address = "Address7", Name = "RestName3", Type = "Breakfast" });
                 //context.Dishes.Add(new Dish { Name = "DishName", Price = 100, Type = "Supper" });
                 
-
-                
-
                 DummyData dd = new DummyData();
-                dd.InsertAllDummyData(context, 10);
+                dd.InsertAllDummyData(context, 5);
                 
                 System.Console.WriteLine("Usage:\n");
                 System.Console.WriteLine("Insertions:\nInsert: \nR(Restaurant)\nD(Dish)\nG(Guest)\nV(Review)\nT(Table)\nW(Waiter)");

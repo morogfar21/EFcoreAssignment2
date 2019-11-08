@@ -30,6 +30,12 @@
     <Compile Remove="Migrations\20191108090216_DummyDataEdited.Designer.cs" />
     <Compile Remove="Migrations\20191108090743_InitialMigration.cs" />
     <Compile Remove="Migrations\20191108090743_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20191108100305_AddingMigration1.cs" />
+    <Compile Remove="Migrations\20191108100305_AddingMigration1.Designer.cs" />
+    <Compile Remove="Migrations\20191108101612_InitialMigration.cs" />
+    <Compile Remove="Migrations\20191108101612_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20191108110502_InitialMigrationBertram.cs" />
+    <Compile Remove="Migrations\20191108110502_InitialMigrationBertram.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
