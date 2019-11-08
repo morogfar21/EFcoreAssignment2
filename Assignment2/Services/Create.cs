@@ -145,8 +145,8 @@ namespace Assignment2.Services
             {
                 Name = name,
                 Type = type,
-                Price = price,
-                Review = review
+                Price = price
+                //Review = review
             };
 
             if (restaurant != null)

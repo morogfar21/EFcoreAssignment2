@@ -12,7 +12,7 @@ namespace Assignment2.Services
 
             context.Guests.Remove(context.Guests.Find(1));
 
-            context.Persons.Remove(context.Persons.Find(1));
+            //context.Persons.Remove(context.Persons.Find(1));
 
             context.Restaurants.Remove(context.Restaurants.Find(1));
 

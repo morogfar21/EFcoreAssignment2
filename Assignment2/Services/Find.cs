@@ -13,16 +13,15 @@ namespace Assignment2.Services
         //{
         //    Console.Write("Time of review dd:mm:yyyy : ");
         //    int time = int.Parse(Console.ReadLine());
+        //  return context.Guests.Where(g => g.Time == time).SingleOrDefault();
+        //}
+        //public static Person FindPerson(AppDbContext context)
+        //{
+        //    Console.Write("Person Name: ");
+        //    string name = Console.ReadLine();
 
-            return context.Guests.Where(g => g.Time == time).SingleOrDefault();
-        }*/
-        public static Person FindPerson(AppDbContext context)
-        {
-            Console.Write("Person Name: ");
-            string name = Console.ReadLine();
-
-            return context.Persons.SingleOrDefault(p => p.Name == name);
-        }
+        //    return context.Persons.SingleOrDefault(p => p.Name == name);
+        //}
         #endregion
 
         #region Bertram
