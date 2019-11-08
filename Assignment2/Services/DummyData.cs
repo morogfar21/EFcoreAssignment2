@@ -68,6 +68,8 @@ namespace Assignment2.Services
         public void InsertDummyTable(AppDbContext context, int numberOfTables)
         {
             var restaurants = context.Restaurants;
+
+
             foreach (var r in restaurants)
             {
                 for (int i = 0; i < numberOfTables; i++)

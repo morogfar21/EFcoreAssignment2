@@ -38,19 +38,25 @@ namespace Assignment2.Migrations
                     b.ToTable("Dishes");
                 });
 
-            modelBuilder.Entity("Assignment2.Models.Person", b =>
+            modelBuilder.Entity("Assignment2.Models.Guest", b =>
                 {
                     b.Property<string>("Name")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Discriminator")
+                    b.Property<int?>("ReviewId");
+
+                    b.Property<int?>("TableId");
+
+                    b.Property<string>("Time")
                         .IsRequired();
 
                     b.HasKey("Name");
 
-                    b.ToTable("Persons");
+                    b.HasIndex("ReviewId");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Person");
+                    b.HasIndex("TableId");
+
+                    b.ToTable("Guests");
                 });
 
             modelBuilder.Entity("Assignment2.Models.Restaurant", b =>
@@ -105,6 +111,18 @@ namespace Assignment2.Migrations
                     b.ToTable("Tables");
                 });
 
+            modelBuilder.Entity("Assignment2.Models.Waiter", b =>
+                {
+                    b.Property<string>("Name")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("Salary");
+
+                    b.HasKey("Name");
+
+                    b.ToTable("Waiters");
+                });
+
             modelBuilder.Entity("Assignment2.ShadowModels.GuestDish", b =>
                 {
                     b.Property<int>("GuestDishId")
@@ -153,45 +171,18 @@ namespace Assignment2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("TableNumber");
+                    b.Property<int>("TableId");
 
                     b.Property<string>("WaiterName")
                         .IsRequired();
 
                     b.HasKey("WaiterTableId");
 
-                    b.HasIndex("TableNumber");
+                    b.HasIndex("TableId");
 
                     b.HasIndex("WaiterName");
 
                     b.ToTable("WaiterTable");
-                });
-
-            modelBuilder.Entity("Assignment2.Models.Guest", b =>
-                {
-                    b.HasBaseType("Assignment2.Models.Person");
-
-                    b.Property<int?>("ReviewId");
-
-                    b.Property<int?>("TableId");
-
-                    b.Property<string>("Time")
-                        .IsRequired();
-
-                    b.HasIndex("ReviewId");
-
-                    b.HasIndex("TableId");
-
-                    b.HasDiscriminator().HasValue("Guest");
-                });
-
-            modelBuilder.Entity("Assignment2.Models.Waiter", b =>
-                {
-                    b.HasBaseType("Assignment2.Models.Person");
-
-                    b.Property<int>("Salary");
-
-                    b.HasDiscriminator().HasValue("Waiter");
                 });
 
             modelBuilder.Entity("Assignment2.Models.Dish", b =>
@@ -199,6 +190,17 @@ namespace Assignment2.Migrations
                     b.HasOne("Assignment2.Models.Review", "Review")
                         .WithMany("Dishes")
                         .HasForeignKey("ReviewId");
+                });
+
+            modelBuilder.Entity("Assignment2.Models.Guest", b =>
+                {
+                    b.HasOne("Assignment2.Models.Review", "Review")
+                        .WithMany("Guests")
+                        .HasForeignKey("ReviewId");
+
+                    b.HasOne("Assignment2.Models.Table", "Table")
+                        .WithMany("Guests")
+                        .HasForeignKey("TableId");
                 });
 
             modelBuilder.Entity("Assignment2.Models.Review", b =>
@@ -247,24 +249,13 @@ namespace Assignment2.Migrations
                 {
                     b.HasOne("Assignment2.Models.Table", "Table")
                         .WithMany("WaiterTables")
-                        .HasForeignKey("TableNumber")
+                        .HasForeignKey("TableId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Assignment2.Models.Waiter", "Waiter")
                         .WithMany("WaiterTables")
                         .HasForeignKey("WaiterName")
                         .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Assignment2.Models.Guest", b =>
-                {
-                    b.HasOne("Assignment2.Models.Review", "Review")
-                        .WithMany("Guests")
-                        .HasForeignKey("ReviewId");
-
-                    b.HasOne("Assignment2.Models.Table", "Table")
-                        .WithMany("Guests")
-                        .HasForeignKey("TableId");
                 });
 #pragma warning restore 612, 618
         }

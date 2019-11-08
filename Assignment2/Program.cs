@@ -50,12 +50,16 @@ namespace Assignment2
                     {
                         case "r":
                             Restaurant restaurant = Create.CreateRestaurant(context);
+                            if (restaurant == null)
+                                break;
                             context.Restaurants.Add(restaurant);
                             context.SaveChanges();
                             break;
 
                         case "d":
                             Dish dish = Create.CreateDish(context);
+                            if (dish == null)
+                                break;
                             context.Dishes.Add(dish);
                             context.SaveChanges();
                             break;

@@ -16,7 +16,7 @@ namespace Assignment2
 
         public DbSet<Dish> Dishes { get; set; }
         public DbSet<Guest> Guests { get; set; }
-        public DbSet<Person> Persons { get; set; }
+        //public DbSet<Person> Persons { get; set; }
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Table> Tables { get; set; }
@@ -59,7 +59,7 @@ namespace Assignment2
             modelBuilder.Entity<WaiterTable>()
                 .HasOne(wt => wt.Table)
                 .WithMany(t => t.WaiterTables)
-                .HasForeignKey(wt => wt.TableNumber);
+                .HasForeignKey(wt => wt.TableId);
             #endregion
         }
 

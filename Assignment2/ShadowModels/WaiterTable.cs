@@ -11,7 +11,7 @@ namespace Assignment2.ShadowModels
         public int WaiterTableId { get; set; }
 
         [Required]
-        public int TableNumber { get; set; }
+        public int TableId { get; set; }
         [Required]
         public string WaiterName { get; set; }
 

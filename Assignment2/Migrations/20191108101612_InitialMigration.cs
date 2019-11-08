@@ -21,6 +21,18 @@ namespace Assignment2.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Waiters",
+                columns: table => new
+                {
+                    Name = table.Column<string>(nullable: false),
+                    Salary = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Waiters", x => x.Name);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Reviews",
                 columns: table => new
                 {
@@ -82,30 +94,54 @@ namespace Assignment2.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Persons",
+                name: "Guests",
                 columns: table => new
                 {
                     Name = table.Column<string>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false),
                     ReviewId = table.Column<int>(nullable: true),
-                    Time = table.Column<string>(nullable: true),
-                    TableId = table.Column<int>(nullable: true),
-                    Salary = table.Column<int>(nullable: true)
+                    Time = table.Column<string>(nullable: false),
+                    TableId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Persons", x => x.Name);
+                    table.PrimaryKey("PK_Guests", x => x.Name);
                     table.ForeignKey(
-                        name: "FK_Persons_Reviews_ReviewId",
+                        name: "FK_Guests_Reviews_ReviewId",
                         column: x => x.ReviewId,
                         principalTable: "Reviews",
                         principalColumn: "ReviewId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Persons_Tables_TableId",
+                        name: "FK_Guests_Tables_TableId",
                         column: x => x.TableId,
                         principalTable: "Tables",
                         principalColumn: "TableId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WaiterTable",
+                columns: table => new
+                {
+                    WaiterTableId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    TableId = table.Column<int>(nullable: false),
+                    WaiterName = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WaiterTable", x => x.WaiterTableId);
+                    table.ForeignKey(
+                        name: "FK_WaiterTable_Tables_TableId",
+                        column: x => x.TableId,
+                        principalTable: "Tables",
+                        principalColumn: "TableId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_WaiterTable_Waiters_WaiterName",
+                        column: x => x.WaiterName,
+                        principalTable: "Waiters",
+                        principalColumn: "Name",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -154,35 +190,9 @@ namespace Assignment2.Migrations
                         principalColumn: "Name",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_GuestDish_Persons_GuestName",
+                        name: "FK_GuestDish_Guests_GuestName",
                         column: x => x.GuestName,
-                        principalTable: "Persons",
-                        principalColumn: "Name",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "WaiterTable",
-                columns: table => new
-                {
-                    WaiterTableId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    TableNumber = table.Column<int>(nullable: false),
-                    WaiterName = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_WaiterTable", x => x.WaiterTableId);
-                    table.ForeignKey(
-                        name: "FK_WaiterTable_Tables_TableNumber",
-                        column: x => x.TableNumber,
-                        principalTable: "Tables",
-                        principalColumn: "TableId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_WaiterTable_Persons_WaiterName",
-                        column: x => x.WaiterName,
-                        principalTable: "Persons",
+                        principalTable: "Guests",
                         principalColumn: "Name",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -203,13 +213,13 @@ namespace Assignment2.Migrations
                 column: "GuestName");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Persons_ReviewId",
-                table: "Persons",
+                name: "IX_Guests_ReviewId",
+                table: "Guests",
                 column: "ReviewId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Persons_TableId",
-                table: "Persons",
+                name: "IX_Guests_TableId",
+                table: "Guests",
                 column: "TableId");
 
             migrationBuilder.CreateIndex(
@@ -233,9 +243,9 @@ namespace Assignment2.Migrations
                 column: "RestaurantAddress");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WaiterTable_TableNumber",
+                name: "IX_WaiterTable_TableId",
                 table: "WaiterTable",
-                column: "TableNumber");
+                column: "TableId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WaiterTable_WaiterName",
@@ -255,16 +265,19 @@ namespace Assignment2.Migrations
                 name: "WaiterTable");
 
             migrationBuilder.DropTable(
+                name: "Guests");
+
+            migrationBuilder.DropTable(
                 name: "Dishes");
 
             migrationBuilder.DropTable(
-                name: "Persons");
-
-            migrationBuilder.DropTable(
-                name: "Reviews");
+                name: "Waiters");
 
             migrationBuilder.DropTable(
                 name: "Tables");
+
+            migrationBuilder.DropTable(
+                name: "Reviews");
 
             migrationBuilder.DropTable(
                 name: "Restaurants");
