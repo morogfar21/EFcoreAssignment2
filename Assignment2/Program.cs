@@ -42,7 +42,7 @@ namespace Assignment2
                 //Console.WriteLine("{0} records saved to database", count);
 
                 DummyData dd = new DummyData();
-                dd.InsertAllDummyData(context, 10);
+                dd.InsertAllDummyData(context, 2);
                 
                 System.Console.WriteLine("Usage:\n");
                 System.Console.WriteLine("Insertions:\nInsert: \nR(Restaurant)\nD(Dish)\nG(Guest)\nV(Review)\nT(Table)\nW(Waiter)");

@@ -181,6 +181,8 @@ namespace Assignment2.Services
                     {
                         foreach (var gd in g.GuestDishes)
                         {
+                            if (review.Dishes == null)
+                                review.Dishes = new List<Dish>();
                             review.Dishes.Add(gd.Dish);
                         }
                     }
@@ -192,58 +194,10 @@ namespace Assignment2.Services
             }
             context.SaveChanges();
 
-            /*
-            int[] numStarsArray = { 1,2,3,4,5 };
-            Random rand = new Random();
-            int randomIndex = rand.Next(numStarsArray.Length);
-
-            for (int index = 0; index < numberOfRestaurantsToReview; index++)
-            {
-                Restaurant restaurant = context.Restaurants.Where(r => r.Address == "Address" + index).SingleOrDefault();
-
-                for (int i = 0; i < numberOfReviews; i++)
-                {
-                    int numStars = numStarsArray[randomIndex];
-
-                    if (restaurant != null)
-                    {
-                        Review review = new Review()
-                        {
-                            Text = text + i,
-                            Stars = numStars,
-                            Restaurant = restaurant
-                        };
-                        context.Reviews.Add(review);
-                    }
-                }
-            }*/
         }
 
         public void InsertDummyGuest(AppDbContext context,  int numberOfGuestsToAdd)
         {
-            //for (int i = 0; i < numberOfRestaurantsToAddGuestsTo; i++)
-            //{
-            //    Restaurant restaurant = context.Restaurants.Where(r => r.Address == "Address" + i).SingleOrDefault();
-
-            //    for (int j = 0; j < numberOfTablesToAddGuestsTo; j++)
-            //    {
-            //        Table table = context.Tables.Where(t => t.Number == j).SingleOrDefault();
-
-            //        for (int k = 0; k < numberOfGuestsToAdd; k++)
-            //        {
-            //            if (restaurant != null && table != null)
-            //            {
-            //                Guest guest = new Guest()
-            //                {
-            //                    Name = name+k+"R"+i,
-            //                    Time = "01:01:2000",
-            //                    Table = table
-            //                };
-            //            }
-            //        }
-            //    }
-            //}
-
             var restaurants = context.Restaurants;
             var tables = context.Tables;
             int guestCount = 0;
@@ -273,6 +227,9 @@ namespace Assignment2.Services
                                 Guest = guest,
                                 Dish = dishes[rand.Next(0, dishes.Count - 1)]
                             };
+                            if (guest.GuestDishes == null)
+                                guest.GuestDishes = new List<GuestDish>();
+                            guest.GuestDishes.Add(guestDish);
                         }
                         if (t.Guests == null)
                             t.Guests = new List<Guest>();
