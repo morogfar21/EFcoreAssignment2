@@ -14,15 +14,15 @@ namespace Assignment2.Services
         //    Console.Write("Time of review dd:mm:yyyy : ");
         //    int time = int.Parse(Console.ReadLine());
 
-        //    return context.Guests.Where(g => g.Time == time).Single();
-        //}
-        //public static Person FindPerson(AppDbContext context)
-        //{
-        //    Console.Write("Person Name: ");
-        //    string name = Console.ReadLine();
+            return context.Guests.Where(g => g.Time == time).SingleOrDefault();
+        }*/
+        public static Person FindPerson(AppDbContext context)
+        {
+            Console.Write("Person Name: ");
+            string name = Console.ReadLine();
 
-        //    return context.Persons.Where(p => p.Name == name).SingleOrDefault();
-        //}
+            return context.Persons.SingleOrDefault(p => p.Name == name);
+        }
         #endregion
 
         #region Bertram
@@ -31,15 +31,7 @@ namespace Assignment2.Services
             Console.Write("Restaurant address: ");
             string address = Console.ReadLine();
 
-            return context.Restaurants.Where(r => r.Address == address).SingleOrDefault();
-
-            //var res = context.Restaurants.Where(r => r.Address == address).SingleOrDefault();
-            //if (res ==)
-            //{
-
-            //}
-
-            //return 
+            return context.Restaurants.SingleOrDefault(r => r.Address == address);
         }
 
         public static Dish FindDish(AppDbContext context)
@@ -47,7 +39,7 @@ namespace Assignment2.Services
             Console.Write("Dish type: ");
             string type = Console.ReadLine();
 
-            return context.Dishes.Where(d => d.Type == type).SingleOrDefault();
+            return context.Dishes.SingleOrDefault(d => d.Type == type);
         }
         #endregion
 
@@ -58,7 +50,7 @@ namespace Assignment2.Services
             Console.WriteLine("Guest Name: ");
             var name = Console.ReadLine();
 
-            return context.Guests.Where(g => g.Name == name).SingleOrDefault();
+            return context.Guests.SingleOrDefault(g => g.Name == name);
         }
 
         #endregion
