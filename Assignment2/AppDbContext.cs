@@ -59,7 +59,7 @@ namespace Assignment2
             modelBuilder.Entity<WaiterTable>()
                 .HasOne(wt => wt.Table)
                 .WithMany(t => t.WaiterTables)
-                .HasForeignKey(wt => wt.TableNumber);
+                .HasForeignKey(wt => wt.TableId);
             #endregion
         }
 

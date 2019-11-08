@@ -30,22 +30,6 @@
     <Compile Remove="Migrations\20191108090216_DummyDataEdited.Designer.cs" />
     <Compile Remove="Migrations\20191108090743_InitialMigration.cs" />
     <Compile Remove="Migrations\20191108090743_InitialMigration.Designer.cs" />
-    <Compile Remove="Migrations\20191108092257_TryHardv2.cs" />
-    <Compile Remove="Migrations\20191108092257_TryHardv2.Designer.cs" />
-    <Compile Remove="Migrations\20191108092334_TryHardv2.cs" />
-    <Compile Remove="Migrations\20191108092334_TryHardv2.Designer.cs" />
-    <Compile Remove="Migrations\20191108092406_TryHardv2.cs" />
-    <Compile Remove="Migrations\20191108092406_TryHardv2.Designer.cs" />
-    <Compile Remove="Migrations\20191108093725_TryHard.cs" />
-    <Compile Remove="Migrations\20191108093725_TryHard.Designer.cs" />
-    <Compile Remove="Migrations\20191108093754_TryHard.cs" />
-    <Compile Remove="Migrations\20191108093754_TryHard.Designer.cs" />
-    <Compile Remove="Migrations\20191108094239_TryHard.cs" />
-    <Compile Remove="Migrations\20191108094239_TryHard.Designer.cs" />
-    <Compile Remove="Migrations\20191108094344_TryHard-IgnoreChanges.cs" />
-    <Compile Remove="Migrations\20191108094344_TryHard-IgnoreChanges.Designer.cs" />
-    <Compile Remove="Migrations\20191108100027_migrationNow.cs" />
-    <Compile Remove="Migrations\20191108100027_migrationNow.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

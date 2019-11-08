@@ -42,18 +42,8 @@ namespace Assignment2
                 
 
                 DummyData dd = new DummyData();
-                //dd.InsertAllDummyData(context, 2);
-                //dd.InsertDummyRestaurant(context, 2);
-                //dd.InsertDummyDishes(context,2);
-                //dd.InsertDummyTable(context,2);
-                //dd.InsertDummyWaiters(context, 2);
-                //dd.InsertDummyGuest(context, 2);
-                dd.InsertDummyReview(context, 2);
-                var count = context.SaveChanges();
-                Console.WriteLine("{0} records saved to database", count);
-
-                //context.SaveChanges();
-
+                dd.InsertAllDummyData(context, 10);
+                
                 System.Console.WriteLine("Usage:\n");
                 System.Console.WriteLine("Insertions:\nInsert: \nR(Restaurant)\nD(Dish)\nG(Guest)\nV(Review)\nT(Table)\nW(Waiter)");
                 System.Console.WriteLine("\nView Query: \nqr(Restaurants general information)\nqv(Restaurants based on table reviews)\nqt(Restaurants by type");
@@ -69,12 +59,16 @@ namespace Assignment2
                     {
                         case "r":
                             Restaurant restaurant = Create.CreateRestaurant(context);
+                            if (restaurant == null)
+                                break;
                             context.Restaurants.Add(restaurant);
                             context.SaveChanges();
                             break;
 
                         case "d":
                             Dish dish = Create.CreateDish(context);
+                            if (dish == null)
+                                break;
                             context.Dishes.Add(dish);
                             context.SaveChanges();
                             break;
