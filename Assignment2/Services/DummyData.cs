@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Assignment2.ShadowModels;
 using System.Linq;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Assignment2.Services
 {
@@ -37,6 +38,31 @@ namespace Assignment2.Services
         {
             string[] dishTypeArray = { "Appertice", "MainCourse", "Dessert", "Snack" };
             Random randDishType = new Random();
+            var dishCount = 0;
+
+            var restaurants = context.Restaurants;
+
+            foreach (var r in restaurants)
+            {
+                if (r.RestaurantDishes == null)
+                    r.RestaurantDishes = new List<RestaurantDish>();
+                for (int i = 0; i < numberOfDishes; i++)
+                {
+                    var dish = new Dish()
+                    {
+                        Name = "Dish" + dishCount++,
+                        Type = dishTypeArray[randDishType.Next(dishTypeArray.Length - 1)],
+                        Price = 10 * numberOfDishes
+                    };
+                    var rd = new RestaurantDish()
+                    {
+                        Dish = dish,
+                        Restaurant = r
+                    };
+                    r.RestaurantDishes.Add(rd);
+                }
+                
+            }
 
             for (int i = 0; i < numberOfDishes; i++)
             {
@@ -63,6 +89,8 @@ namespace Assignment2.Services
                 }
                 context.Dishes.Add(dish);
             }
+
+            context.SaveChanges();
         }
 
         public void InsertDummyTable(AppDbContext context, int numberOfTables)
@@ -85,6 +113,7 @@ namespace Assignment2.Services
                     context.Tables.Add(table);
                 }
             }
+            context.SaveChanges();
         }
 
         #endregion
@@ -130,6 +159,7 @@ namespace Assignment2.Services
 
                 context.Restaurants.Add(restaurant);
             }
+            context.SaveChanges();
         }
 
         public void InsertDummyReview(AppDbContext context, int numberOfReviews )//int numberOfRestaurantsToReview)
@@ -160,6 +190,7 @@ namespace Assignment2.Services
                     context.Reviews.Add(review);
                 }
             }
+            context.SaveChanges();
 
             /*
             int[] numStarsArray = { 1,2,3,4,5 };
@@ -219,25 +250,38 @@ namespace Assignment2.Services
 
             foreach (var r in restaurants)
             {
+                Random rand = new Random();
+                List<Dish> dishes = new List<Dish>();
+                foreach (var rd in r.RestaurantDishes)
+                {
+                    dishes.Add(rd.Dish);
+                }
                 foreach (var t in tables)
                 {
                     for (int i = 0; i < numberOfGuestsToAdd; i++)
                     {
                         var guest = new Guest()
                         {
-                            Name = "Guest" + guestCount,
+                            Name = "Guest" + guestCount++,
                             Time = "01:01:2000",
                             Table = t,
                         };
+                        for (int index = 0; index < 3; index++)
+                        {
+                            var guestDish = new GuestDish()
+                            {
+                                Guest = guest,
+                                Dish = dishes[rand.Next(0, dishes.Count - 1)]
+                            };
+                        }
                         if (t.Guests == null)
                             t.Guests = new List<Guest>();
                         t.Guests.Add(guest);
                         context.Guests.Add(guest);
-                        guestCount++;
                     }
                 }
             }
-
+            context.SaveChanges();
         }
         #endregion
 
@@ -269,6 +313,7 @@ namespace Assignment2.Services
                     waiterCount++;
                 }
             }
+            context.SaveChanges();
         }
         #endregion
     }
