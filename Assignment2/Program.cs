@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Assignment2.Models;
 using Assignment2.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace Assignment2
 {
@@ -28,8 +31,18 @@ namespace Assignment2
 
             using (var context = new AppDbContext())
             {
+                //context.Restaurants.Add(new Restaurant { Address = "Address5", Name = "RestName3", Type = "Breakfast" });
+
+                //context.Restaurants.Add(new Restaurant { Address = "Address6", Name = "RestName3", Type = "Breakfast" });
+                //context.Restaurants.Add(new Restaurant { Address = "Address7", Name = "RestName3", Type = "Breakfast" });
+                //context.Dishes.Add(new Dish { Name = "DishName", Price = 100, Type = "Supper" });
+                //var count = context.SaveChanges();
+
+                //Console.WriteLine("{0} records saved to database", count);
+
                 DummyData dd = new DummyData();
                 dd.InsertAllDummyData(context, 2);
+
                 System.Console.WriteLine("Usage:\n");
                 System.Console.WriteLine("Insertions:\nInsert: \nR(Restaurant)\nD(Dish)\nG(Guest)\nV(Review)\nT(Table)\nW(Waiter)");
                 System.Console.WriteLine("\nView Query: \nqr(Restaurants general information)\nqv(Restaurants based on table reviews)\nqt(Restaurants by type");
@@ -89,7 +102,15 @@ namespace Assignment2
                             View.ListRestaurantGeneralInformation(context);
                             break;
 
-                        case "qv": 
+                        case "qv":
+                            List<Restaurant> restaurants =
+                                context.Restaurants.Include(r => r.RestaurantDishes).ThenInclude(rd => rd.Dish).ToList();
+
+                            foreach (var r in restaurants)
+                            {
+                                Console.WriteLine($"Name: {r.Address}, ");
+                            }
+
                             View.ListRestaurantBasedOnTableReviews(context);
                             break;
 

@@ -46,7 +46,7 @@ namespace Assignment2.Services
                 dish.Type = dishTypeArray[randDishType.Next(dishTypeArray.Length - 1)];
                 dish.Price = 10 * i;
                 
-                var restaurant = context.Restaurants.Where(r => r.Address == ("Adress" + i)).Single();
+                var restaurant = context.Restaurants.Where(r => r.Address == ("Adress" + i)).SingleOrDefault();
                 
                 if (restaurant != null)
                 {
@@ -75,6 +75,10 @@ namespace Assignment2.Services
                         Number = i,
                         Restaurant = r
                     };
+                    if (r.Tables == null)
+                    {
+                        r.Tables = new List<Table>();
+                    }
                     r.Tables.Add(table);
                     context.Tables.Add(table);
                 }
@@ -100,7 +104,7 @@ namespace Assignment2.Services
                 string restaurantType = restaurantTypeArray[rand1.Next(restaurantTypeArray.Length-1)];
                 string dishType = dishTypeArray[rand2.Next(dishTypeArray.Length-1)];
 
-                Dish dish = context.Dishes.Where(d => d.Type == dishType).Single();
+                Dish dish = context.Dishes.Where(d => d.Type == dishType).SingleOrDefault();
 
                 Restaurant restaurant = new Restaurant()
                 {

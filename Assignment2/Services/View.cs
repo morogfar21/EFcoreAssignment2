@@ -53,7 +53,7 @@ namespace Assignment2.Services
             Restaurant res = Find.FindRestaurant(context);
 
             List<Restaurant> restaurants = context.Restaurants.
-                Include(d => d.RestaurantDishes).ThenInclude(rd => rd.Dish).ToList();
+                Include(r => r.RestaurantDishes).ThenInclude(rd => rd.Dish)/*.Include(rw => rw.Reviews)*/.ToList();
 
             if (res != null)
             {

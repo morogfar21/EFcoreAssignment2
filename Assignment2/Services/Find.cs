@@ -9,20 +9,20 @@ namespace Assignment2.Services
     public static class Find
     {
         #region Marcus
-        /*public static Guest FindGuest(AppDbContext context)
-        {
-            Console.Write("Time of review dd:mm:yyyy : ");
-            int time = int.Parse(Console.ReadLine());
+        //public static Guest FindGuest(AppDbContext context)
+        //{
+        //    Console.Write("Time of review dd:mm:yyyy : ");
+        //    int time = int.Parse(Console.ReadLine());
 
-            return context.Guests.Where(g => g.Time == time).Single();
-        }*/
-        public static Person FindPerson(AppDbContext context)
-        {
-            Console.Write("Person Name: ");
-            string name = Console.ReadLine();
+        //    return context.Guests.Where(g => g.Time == time).Single();
+        //}
+        //public static Person FindPerson(AppDbContext context)
+        //{
+        //    Console.Write("Person Name: ");
+        //    string name = Console.ReadLine();
 
-            return context.Persons.Where(p => p.Name == name).Single();
-        }
+        //    return context.Persons.Where(p => p.Name == name).SingleOrDefault();
+        //}
         #endregion
 
         #region Bertram
@@ -31,7 +31,15 @@ namespace Assignment2.Services
             Console.Write("Restaurant address: ");
             string address = Console.ReadLine();
 
-            return context.Restaurants.Where(r => r.Address == address).Single();
+            return context.Restaurants.Where(r => r.Address == address).SingleOrDefault();
+
+            //var res = context.Restaurants.Where(r => r.Address == address).SingleOrDefault();
+            //if (res ==)
+            //{
+
+            //}
+
+            //return 
         }
 
         public static Dish FindDish(AppDbContext context)
@@ -39,26 +47,18 @@ namespace Assignment2.Services
             Console.Write("Dish type: ");
             string type = Console.ReadLine();
 
-            return context.Dishes.Where(d => d.Type == type).Single();
+            return context.Dishes.Where(d => d.Type == type).SingleOrDefault();
         }
         #endregion
 
         #region Henrik
-
-        public static Review FindReview(AppDbContext context)
-        {
-            Console.WriteLine("Review Id: ");
-            int reviewId = int.Parse(Console.ReadLine());
-
-            return context.Reviews.Where(r => r.ReviewId == reviewId).Single();
-        }
 
         public static Guest FindGuest(AppDbContext context)
         {
             Console.WriteLine("Guest Name: ");
             var name = Console.ReadLine();
 
-            return context.Guests.Where(g => g.Name == name).Single();
+            return context.Guests.Where(g => g.Name == name).SingleOrDefault();
         }
 
         #endregion
@@ -70,7 +70,7 @@ namespace Assignment2.Services
             Console.Write("Waiter name: ");
             string name = Console.ReadLine();
 
-            return context.Waiters.Where(w => w.Name == name).Single();
+            return context.Waiters.Where(w => w.Name == name).SingleOrDefault();
         }
 
         public static Table FindTable(AppDbContext context)
@@ -78,7 +78,7 @@ namespace Assignment2.Services
             Console.Write("Number of table: ");
             int number = int.Parse(Console.ReadLine());
 
-            return context.Tables.Where(w => w.Number == number).Single();
+            return context.Tables.Where(w => w.Number == number).SingleOrDefault();
         }
 
         #endregion

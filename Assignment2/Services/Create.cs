@@ -129,7 +129,6 @@ namespace Assignment2.Services
 
         public static Dish CreateDish(AppDbContext context)
         {
-            var review = Find.FindReview(context);
             var restaurant = Find.FindRestaurant(context);
             var guest = Find.FindGuest(context);
 
