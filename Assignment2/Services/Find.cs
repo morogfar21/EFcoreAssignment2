@@ -32,14 +32,6 @@ namespace Assignment2.Services
 
         #region Henrik
 
-        public static Review FindReview(AppDbContext context)
-        {
-            Console.WriteLine("Review Id: ");
-            int reviewId = int.Parse(Console.ReadLine());
-
-            return context.Reviews.SingleOrDefault(r => r.ReviewId == reviewId);
-        }
-
         public static Guest FindGuest(AppDbContext context)
         {
             Console.WriteLine("Guest Name: ");
