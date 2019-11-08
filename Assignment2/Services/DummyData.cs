@@ -213,20 +213,17 @@ namespace Assignment2.Services
         private static void InsertDummyGuest(AppDbContext context,  int numberOfGuestsToAdd)
         {
             var restaurants = context.Restaurants;
-            var tables = context.Tables;
-            int guestCount = 0;
+            
+            var guestCount = 0;
 
+            var rand = new Random();
             foreach (var r in restaurants)
             {
-                Random rand = new Random();
-                List<Dish> dishes = new List<Dish>();
-                foreach (var rd in r.RestaurantDishes)
+                var dishes = r.RestaurantDishes.Select(rd => rd.Dish).ToList();
+
+                foreach (var t in r.Tables)
                 {
-                    dishes.Add(rd.Dish);
-                }
-                foreach (var t in tables)
-                {
-                    for (int i = 0; i < numberOfGuestsToAdd; i++)
+                    for (var i = 0; i < numberOfGuestsToAdd; i++)
                     {
                         var guest = new Guest()
                         {
@@ -234,7 +231,7 @@ namespace Assignment2.Services
                             Time = "01:01:2000",
                             Table = t,
                         };
-                        for (int index = 0; index < 3; index++)
+                        for (var index = 0; index < 3; index++)
                         {
                             var guestDish = new GuestDish()
                             {

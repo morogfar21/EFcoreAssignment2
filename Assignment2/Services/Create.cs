@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Assignment2.Models;
 using Assignment2.ShadowModels;
@@ -26,7 +27,7 @@ namespace Assignment2.Services
         */
         public static Guest CreateGuest(AppDbContext context)
         {
-            Table table = Find.FindTable(context);
+            var table = Find.FindTable(context);
 
             Console.Write("Guest name: ");
             var name = Console.ReadLine();
@@ -34,7 +35,7 @@ namespace Assignment2.Services
             Console.Write("date of restaurant visit(dd:mm:yyyy) : ");
             var time = Console.ReadLine();
 
-            Guest guest = new Guest()
+            var guest = new Guest()
             {
                 Name = name,
                 Time = time
@@ -47,7 +48,7 @@ namespace Assignment2.Services
 
             Console.WriteLine("Number of dishes: ");
             var numberOfDishes = Int32.Parse(Console.ReadLine());
-            for (int i = 0; i < numberOfDishes; i++)
+            for (var i = 0; i < numberOfDishes; i++)
             {
                 var dish = CreateDish(context);
                 var guestDish = new GuestDish()
@@ -66,46 +67,45 @@ namespace Assignment2.Services
         public static Restaurant CreateRestaurant(AppDbContext context)
         {
             var restaurant = Find.FindRestaurant(context);
-            if (restaurant == null)
+            if (restaurant != null) return null;
+
+            restaurant = new Restaurant();
+            var dish = Find.FindDish(context);
+
+            Console.Write("Name of restaurant: ");
+            var name = Console.ReadLine();
+
+            Console.Write("Type (Breakfast, Dinner, Buffet...): ");
+            var type = Console.ReadLine();
+
+            Console.Write("Restaurant address: ");
+            var address = Console.ReadLine();
+
+            restaurant.Name = name;
+            restaurant.Type = type;
+            restaurant.Address = address;
+
+            if (dish != null)
             {
-                Dish dish = Find.FindDish(context);
-
-                Console.Write("Name of restaurant: ");
-                string name = Console.ReadLine();
-
-                Console.Write("Type (Breakfast, Dinner, Buffet...): ");
-                string type = Console.ReadLine();
-
-                Console.Write("Restaurant address: ");
-                string address = Console.ReadLine();
-
-                restaurant.Name = name;
-                restaurant.Type = type;
-                restaurant.Address = address;
-
-                if (dish != null)
+                restaurant.RestaurantDishes = new List<RestaurantDish>()
                 {
-                    restaurant.RestaurantDishes = new List<RestaurantDish>()
+                    new RestaurantDish()
                     {
-                        new RestaurantDish()
-                        {
-                            Restaurant = restaurant,
-                            Dish = dish
-                            //RestaurantAddress = address,
-                            //DishType = type
-                        }
-                    };
-                }
-                return restaurant;
+                        Restaurant = restaurant,
+                        Dish = dish
+                        //RestaurantAddress = address,
+                        //DishType = type
+                    }
+                };
             }
+            return restaurant;
 
-            return null;
         }
 
         public static Review CreateReview(AppDbContext context)
         {
-            Review review = new Review();
-            Restaurant restaurant = Find.FindRestaurant(context);
+            var review = new Review();
+            var restaurant = Find.FindRestaurant(context);
 
             if (restaurant == null)
             {
@@ -113,7 +113,7 @@ namespace Assignment2.Services
             }
 
             Console.WriteLine("How many guests ate?: ");
-            string numOfGuests = Console.ReadLine();
+            var numOfGuests = Console.ReadLine();
 
             for (int i = 0; i < Int32.Parse(numOfGuests); i++)
             {
@@ -130,12 +130,9 @@ namespace Assignment2.Services
             Console.Write("Stars: ");
             review.Stars = double.Parse(Console.ReadLine());
 
-            foreach (var g in review.Guests)
+            foreach (var gd in review.Guests.SelectMany(g => g.GuestDishes))
             {
-                foreach (var gd in g.GuestDishes)
-                {
-                    review.Dishes.Add(gd.Dish);
-                }
+                review.Dishes.Add(gd.Dish);
             }
             
             return review;
@@ -148,52 +145,50 @@ namespace Assignment2.Services
         public static Dish CreateDish(AppDbContext context)
         {
             var dish = Find.FindDish(context);
-            if (dish == null)
+            if (dish != null) return null;
+
+            dish = new Dish();
+            var restaurant = Find.FindRestaurant(context);
+            var guest = Find.FindGuest(context);
+
+            Console.WriteLine("Input Dish Name again: ");
+            var name = Console.ReadLine();
+
+            Console.WriteLine("Input Type: ");
+            var type = Console.ReadLine();
+
+            Console.WriteLine("Input Price: ");
+            var price = int.Parse(Console.ReadLine());
+
+            dish.Name = name;
+            dish.Type = type;
+            dish.Price = price;
+
+            if (restaurant != null)
             {
-                dish = new Dish();
-                var restaurant = Find.FindRestaurant(context);
-                var guest = Find.FindGuest(context);
-
-                Console.WriteLine("Input Dish Name again: ");
-                var name = Console.ReadLine();
-
-                Console.WriteLine("Input Type: ");
-                var type = Console.ReadLine();
-
-                Console.WriteLine("Input Price: ");
-                var price = int.Parse(Console.ReadLine());
-
-                dish.Name = name;
-                dish.Type = type;
-                dish.Price = price;
-
-                if (restaurant != null)
+                dish.RestaurantDishes = new List<RestaurantDish>()
                 {
-                    dish.RestaurantDishes = new List<RestaurantDish>()
+                    new RestaurantDish()
                     {
-                        new RestaurantDish()
-                        {
-                            Restaurant = restaurant,
-                            Dish = dish,
-                        }
-                    };
-                }
-
-                if (guest != null)
-                {
-                    dish.GuestDishes = new List<GuestDish>()
-                    {
-                        new GuestDish()
-                        {
-                            Guest = guest,
-                            Dish = dish,
-                        }
-                    };
-                }
-                return dish;
+                        Restaurant = restaurant,
+                        Dish = dish,
+                    }
+                };
             }
 
-            return null;
+            if (guest != null)
+            {
+                dish.GuestDishes = new List<GuestDish>()
+                {
+                    new GuestDish()
+                    {
+                        Guest = guest,
+                        Dish = dish,
+                    }
+                };
+            }
+            return dish;
+
         }
 
         #endregion
@@ -201,14 +196,14 @@ namespace Assignment2.Services
         #region Frands
         public static Table CreateTable(AppDbContext context)
         {
-            Restaurant restaurant = Find.FindRestaurant(context);
-            Waiter waiter = Find.FindWaiter(context);
+            var restaurant = Find.FindRestaurant(context);
+            var waiter = Find.FindWaiter(context);
 
 
             Console.Write("Number of table: ");
-            int number = int.Parse(Console.ReadLine());
+            var number = int.Parse(Console.ReadLine());
 
-            Table table = new Table()
+            var table = new Table()
             {
                 Number = number,
                 Restaurant = restaurant
@@ -231,15 +226,15 @@ namespace Assignment2.Services
 
         public static Waiter CreateWaiter(AppDbContext context)
         {
-            Table table = Find.FindTable(context);
+            var table = Find.FindTable(context);
 
             Console.Write("Name of waiter: ");
-            string name = Console.ReadLine();
+            var name = Console.ReadLine();
 
             Console.Write("Salary: ");
-            int salary = int.Parse(Console.ReadLine());
+            var salary = int.Parse(Console.ReadLine());
 
-            Waiter waiter = new Waiter()
+            var waiter = new Waiter()
             {
                 Name = name,
                 Salary = salary

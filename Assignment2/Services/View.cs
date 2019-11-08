@@ -167,7 +167,7 @@ namespace Assignment2.Services
                     }
                     Console.WriteLine($"{guestList}");
                     var dishList = "\nHad the following dishes: ";
-                    Console.WriteLine("\n Had the following dishes: ");
+                    
 
                     foreach (var d in g.Review.Dishes)
                     {

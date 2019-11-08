@@ -55,7 +55,7 @@ namespace Assignment2
                     switch (line)
                     {
                         case "1":
-                            DummyData.InsertAllDummyData(context,10);
+                            DummyData.InsertAllDummyData(context,5);
                             Console.WriteLine("DummyDataInserted");
                             break;
                         case "2":
