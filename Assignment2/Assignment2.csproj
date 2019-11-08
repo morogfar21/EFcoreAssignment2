@@ -26,6 +26,8 @@
     <Compile Remove="Migrations\20191107104628_InitialCreate.Designer.cs" />
     <Compile Remove="Migrations\20191107150020_TryHard.cs" />
     <Compile Remove="Migrations\20191107150020_TryHard.Designer.cs" />
+    <Compile Remove="Migrations\20191108090216_DummyDataEdited.cs" />
+    <Compile Remove="Migrations\20191108090216_DummyDataEdited.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

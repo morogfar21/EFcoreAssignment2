@@ -46,18 +46,20 @@ namespace Assignment2.Services
                 dish.Type = dishTypeArray[randDishType.Next(dishTypeArray.Length - 1)];
                 dish.Price = 10 * i;
                 
-                var restaurant = context.Restaurants.Where(r => r.Address == ("Adress" + i)).Single();
+                var restaurant = context.Restaurants.SingleOrDefault(r => r.Address == ("Adress" + i));
                 
                 if (restaurant != null)
                 {
-                    dish.RestaurantDishes = new List<RestaurantDish>()
+                    if (dish.RestaurantDishes == null)
+                        dish.RestaurantDishes = new List<RestaurantDish>();
+
+                    var restaurantDish = new RestaurantDish()
                     {
-                        new RestaurantDish()
-                        {
-                            Restaurant = restaurant,
-                            Dish = dish,
-                        }
+                        Restaurant = restaurant,
+                        Dish = dish,
                     };
+
+                    dish.RestaurantDishes.Add(restaurantDish);
                 }
                 context.Dishes.Add(dish);
             }
@@ -75,6 +77,8 @@ namespace Assignment2.Services
                         Number = i,
                         Restaurant = r
                     };
+                    if (r.Tables == null)
+                        r.Tables = new List<Table>();
                     r.Tables.Add(table);
                     context.Tables.Add(table);
                 }
@@ -100,7 +104,7 @@ namespace Assignment2.Services
                 string restaurantType = restaurantTypeArray[rand1.Next(restaurantTypeArray.Length-1)];
                 string dishType = dishTypeArray[rand2.Next(dishTypeArray.Length-1)];
 
-                Dish dish = context.Dishes.Where(d => d.Type == dishType).Single();
+                //Dish dish = context.Dishes.SingleOrDefault(d => d.Type == dishType);
 
                 Restaurant restaurant = new Restaurant()
                 {
@@ -108,18 +112,20 @@ namespace Assignment2.Services
                     Type = restaurantType,
                     Address = "Address" + i
                 };
-
+                /*
                 if (dish != null)
                 {
-                    restaurant.RestaurantDishes = new List<RestaurantDish>()
+                    if (restaurant.RestaurantDishes == null)
+                        restaurant.RestaurantDishes = new List<RestaurantDish>();
+
+                    var restaurantDish = new RestaurantDish()
                     {
-                        new RestaurantDish()
-                        {
-                            Restaurant = restaurant,
-                            Dish = dish
-                        }
+                        Restaurant = restaurant,
+                        Dish = dish
                     };
-                }
+                    restaurant.RestaurantDishes.Add(restaurantDish);
+                }*/
+
                 context.Restaurants.Add(restaurant);
             }
         }
@@ -136,6 +142,8 @@ namespace Assignment2.Services
                 {
                     var review = new Review();
                     review.Restaurant = r;
+                    if (t.Guests == null)
+                        t.Guests = new List<Guest>();
                     review.Guests = t.Guests;
                     foreach (var g in review.Guests)
                     {
@@ -147,6 +155,7 @@ namespace Assignment2.Services
 
                     review.Text = "Text for review" + reviewNumber++;
                     review.Stars = rand.Next(1, 5);
+                    context.Reviews.Add(review);
                 }
             }
 
@@ -157,7 +166,7 @@ namespace Assignment2.Services
 
             for (int index = 0; index < numberOfRestaurantsToReview; index++)
             {
-                Restaurant restaurant = context.Restaurants.Where(r => r.Address == "Address" + index).Single();
+                Restaurant restaurant = context.Restaurants.Where(r => r.Address == "Address" + index).SingleOrDefault();
 
                 for (int i = 0; i < numberOfReviews; i++)
                 {
@@ -181,11 +190,11 @@ namespace Assignment2.Services
         {
             //for (int i = 0; i < numberOfRestaurantsToAddGuestsTo; i++)
             //{
-            //    Restaurant restaurant = context.Restaurants.Where(r => r.Address == "Address" + i).Single();
+            //    Restaurant restaurant = context.Restaurants.Where(r => r.Address == "Address" + i).SingleOrDefault();
 
             //    for (int j = 0; j < numberOfTablesToAddGuestsTo; j++)
             //    {
-            //        Table table = context.Tables.Where(t => t.Number == j).Single();
+            //        Table table = context.Tables.Where(t => t.Number == j).SingleOrDefault();
 
             //        for (int k = 0; k < numberOfGuestsToAdd; k++)
             //        {
@@ -218,6 +227,8 @@ namespace Assignment2.Services
                             Time = "01:01:2000",
                             Table = t,
                         };
+                        if (t.Guests == null)
+                            t.Guests = new List<Guest>();
                         t.Guests.Add(guest);
                         context.Guests.Add(guest);
                         guestCount++;
@@ -243,14 +254,15 @@ namespace Assignment2.Services
                         Name = "Waiter"+ waiterCount,
                         Salary = waiterCount * 100
                     };
-                    waiter.WaiterTables = new List<WaiterTable>()
+                    if (waiter.WaiterTables == null)
+                        waiter.WaiterTables = new List<WaiterTable>();
+
+                    var waiterTable = new WaiterTable()
                     {
-                        new WaiterTable()
-                        {
-                            Waiter = waiter,
-                            Table = t
-                        }
+                        Waiter = waiter,
+                        Table = t
                     };
+                    waiter.WaiterTables.Add(waiterTable);
                     context.Waiters.Add(waiter);
                     waiterCount++;
                 }

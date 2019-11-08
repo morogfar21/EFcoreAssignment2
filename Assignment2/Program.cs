@@ -1,6 +1,8 @@
 ﻿using System;
 using Assignment2.Models;
 using Assignment2.Services;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Assignment2
 {
@@ -28,12 +30,16 @@ namespace Assignment2
 
             using (var context = new AppDbContext())
             {
+                
+                
                 DummyData dd = new DummyData();
                 dd.InsertAllDummyData(context, 2);
+                
                 System.Console.WriteLine("Usage:\n");
                 System.Console.WriteLine("Insertions:\nInsert: \nR(Restaurant)\nD(Dish)\nG(Guest)\nV(Review)\nT(Table)\nW(Waiter)");
                 System.Console.WriteLine("\nView Query: \nqr(Restaurants general information)\nqv(Restaurants based on table reviews)\nqt(Restaurants by type");
                 System.Console.WriteLine("\nExit: x");
+                
 
                 while (true)
                 {
