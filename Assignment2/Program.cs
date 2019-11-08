@@ -37,9 +37,9 @@ namespace Assignment2
                 //context.Restaurants.Add(new Restaurant { Address = "Address6", Name = "RestName3", Type = "Breakfast" });
                 //context.Restaurants.Add(new Restaurant { Address = "Address7", Name = "RestName3", Type = "Breakfast" });
                 //context.Dishes.Add(new Dish { Name = "DishName", Price = 100, Type = "Supper" });
-                //var count = context.SaveChanges();
+                
 
-                //Console.WriteLine("{0} records saved to database", count);
+                
 
                 DummyData dd = new DummyData();
                 dd.InsertAllDummyData(context, 2);
@@ -114,7 +114,7 @@ namespace Assignment2
 
                             foreach (var r in restaurants)
                             {
-                                Console.WriteLine($"Name: {r.Address}, ");
+                                Console.WriteLine($"Name: {r.Name}, Address: {r.Address}");
                             }
 
                             View.ListRestaurantBasedOnTableReviews(context);
