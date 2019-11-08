@@ -28,7 +28,7 @@ namespace Assignment2.Services
                 {
                     var reviewCount = r.Reviews.Count - i - 1;
                     if (reviewCount >=0)
-                        Console.WriteLine($"Review nr {i+1}: {r.Reviews.ElementAt(reviewCount)}");
+                        Console.WriteLine($"Review nr {i+1}: {r.Reviews.ElementAt(reviewCount).Text}");
                 }
             }
         }
@@ -63,6 +63,8 @@ namespace Assignment2.Services
         private static double CalculateAverageRating(List<Review> revList)
         {
             double stars = 0;
+            if (revList == null)
+                return 0;
             foreach (var rev in revList)
             {
                 stars += rev.Stars;
@@ -75,10 +77,13 @@ namespace Assignment2.Services
         public static void ListRestaurantGeneralInformation(AppDbContext context)
         {
             var r = Find.FindRestaurant(context);
+            if (r == null)
+                return;
+
             var dishes = new List<Dish>();
-            foreach (var rd in r.RestaurantDishes)
+            if (r.RestaurantDishes != null)
             {
-                dishes.Add(rd.Dish);
+                dishes.AddRange(r.RestaurantDishes.Select(rd => rd.Dish));
             }
 
             Console.WriteLine("Dishes:\n");

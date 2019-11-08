@@ -47,7 +47,7 @@ namespace Assignment2.Services
             }
 
             Console.WriteLine("Number of dishes: ");
-            var numberOfDishes = Int32.Parse(Console.ReadLine());
+            var numberOfDishes = int.Parse(Console.ReadLine());
             for (var i = 0; i < numberOfDishes; i++)
             {
                 var dish = CreateDish(context);
