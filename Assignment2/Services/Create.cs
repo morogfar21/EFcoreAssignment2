@@ -150,10 +150,11 @@ namespace Assignment2.Services
             var dish = Find.FindDish(context);
             if (dish == null)
             {
+                dish = new Dish();
                 var restaurant = Find.FindRestaurant(context);
                 var guest = Find.FindGuest(context);
 
-                Console.WriteLine("Input Dish Name: ");
+                Console.WriteLine("Input Dish Name again: ");
                 var name = Console.ReadLine();
 
                 Console.WriteLine("Input Type: ");

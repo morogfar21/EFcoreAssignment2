@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Assignment2.Migrations
 {
-    public partial class AddingMigration1 : Migration
+    public partial class T : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -125,15 +125,15 @@ namespace Assignment2.Migrations
                 {
                     WaiterTableId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    TableNumber = table.Column<int>(nullable: false),
+                    TableId = table.Column<int>(nullable: false),
                     WaiterName = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WaiterTable", x => x.WaiterTableId);
                     table.ForeignKey(
-                        name: "FK_WaiterTable_Tables_TableNumber",
-                        column: x => x.TableNumber,
+                        name: "FK_WaiterTable_Tables_TableId",
+                        column: x => x.TableId,
                         principalTable: "Tables",
                         principalColumn: "TableId",
                         onDelete: ReferentialAction.Cascade);
@@ -243,9 +243,9 @@ namespace Assignment2.Migrations
                 column: "RestaurantAddress");
 
             migrationBuilder.CreateIndex(
-                name: "IX_WaiterTable_TableNumber",
+                name: "IX_WaiterTable_TableId",
                 table: "WaiterTable",
-                column: "TableNumber");
+                column: "TableId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WaiterTable_WaiterName",
