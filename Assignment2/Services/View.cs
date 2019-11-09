@@ -126,7 +126,7 @@ namespace Assignment2.Services
         //(restaurant addr) -> information about guests reviews for dishes based on table. 
         public static void ListRestaurantBasedOnTableReviews(AppDbContext context)
         {
-            List<Table> tables = context.Tables.ToList();
+            var tables = context.Tables.ToList();
 
             foreach (var t in tables)
             {
