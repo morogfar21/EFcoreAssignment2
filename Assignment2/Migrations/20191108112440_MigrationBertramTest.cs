@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Assignment2.Migrations
 {
-    public partial class InitialMigrationBertram : Migration
+    public partial class MigrationBertramTest : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
