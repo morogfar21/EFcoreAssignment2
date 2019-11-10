@@ -9,32 +9,37 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Assignment2.Services
 {
-    public class DummyData
+    public static class DummyData
     {
-        public void InsertAllDummyData(AppDbContext context,int amountOfData)
+        public static bool DummyDataInserted = false;
+        public static void InsertAllDummyData(AppDbContext context,int amountOfData)
         {
-            //Inserting Restaurants
-            InsertDummyRestaurant(context, amountOfData);
+            if (!DummyDataInserted)
+            {
+                //Inserting Restaurants
+                InsertDummyRestaurant(context, amountOfData);
 
-            //Inserting Tables
-            InsertDummyTable(context,amountOfData);
+                //Inserting Tables
+                InsertDummyTable(context, amountOfData);
 
-            //Inserting Dishes
-            InsertDummyDishes(context, amountOfData);
+                //Inserting Dishes
+                InsertDummyDishes(context, amountOfData);
 
-            //Inserting Waiters
-            InsertDummyWaiters(context, amountOfData);
-            //Inserting Guests
-            InsertDummyGuest(context, amountOfData);
+                //Inserting Waiters
+                InsertDummyWaiters(context, amountOfData);
+                //Inserting Guests
+                InsertDummyGuest(context, amountOfData);
 
-            //Inserting Reviews
-            InsertDummyReview(context,amountOfData);
+                //Inserting Reviews
+                InsertDummyReview(context, amountOfData);
+                context.SaveChanges();
+                DummyDataInserted = true;
+            }
 
-            context.SaveChanges();
         }
         #region Henrik
 
-        public void InsertDummyDishes(AppDbContext context, int numberOfDishes)
+        private static void InsertDummyDishes(AppDbContext context, int numberOfDishes)
         {
             string[] dishTypeArray = { "Appertice", "MainCourse", "Dessert", "Snack" };
             Random randDishType = new Random();
@@ -93,7 +98,7 @@ namespace Assignment2.Services
             context.SaveChanges();
         }
 
-        public void InsertDummyTable(AppDbContext context, int numberOfTables)
+        private static void InsertDummyTable(AppDbContext context, int numberOfTables)
         {
             var restaurants = context.Restaurants;
 
@@ -118,11 +123,9 @@ namespace Assignment2.Services
 
         #endregion
 
-        #region Frands
-        #endregion
 
         #region Bertram
-        public void InsertDummyRestaurant(AppDbContext context, int numberOfRestaurants)
+        private static void InsertDummyRestaurant(AppDbContext context, int numberOfRestaurants)
         {
             string[] restaurantTypeArray = { "Breakfast", "Dinner", "Supper"};
             Random rand1 = new Random();
@@ -141,7 +144,9 @@ namespace Assignment2.Services
                 {
                     Name = "Restaurant" + i,
                     Type = restaurantType,
-                    Address = "Address" + i
+                    Address = "Address" + i,
+                    Reviews = new List<Review>(),
+                    Tables = new List<Table>()
                 };
                 /*
                 if (dish != null)
@@ -162,23 +167,27 @@ namespace Assignment2.Services
             context.SaveChanges();
         }
 
-        public void InsertDummyReview(AppDbContext context, int numberOfReviews )//int numberOfRestaurantsToReview)
+        private static void InsertDummyReview(AppDbContext context, int numberOfReviews )//int numberOfRestaurantsToReview)
         {
             var restaurants = context.Restaurants;
-            var guests = context.Guests;
-            int reviewNumber = 0;
-            Random rand = new Random();
+            
+            var reviewNumber = 0;
+            var rand = new Random();
             foreach (var r in restaurants)
             {
                 foreach (var t in r.Tables)
                 {
-                    var review = new Review();
-                    review.Restaurant = r;
+                    var review = new Review {Restaurant = r};
+
                     if (t.Guests == null)
                         t.Guests = new List<Guest>();
-                    review.Guests = t.Guests;
-                    foreach (var g in review.Guests)
+
+                    if (review.Guests == null)
+                        review.Guests = new List<Guest>();
+
+                    foreach (var g in t.Guests)
                     {
+                        review.Guests.Add(g);
                         foreach (var gd in g.GuestDishes)
                         {
                             if (review.Dishes == null)
@@ -189,6 +198,11 @@ namespace Assignment2.Services
 
                     review.Text = "Text for review" + reviewNumber++;
                     review.Stars = rand.Next(1, 5);
+
+                    if (r.Reviews==null)
+                        r.Reviews = new List<Review>();
+                    r.Reviews.Add(review);
+
                     context.Reviews.Add(review);
                 }
             }
@@ -196,23 +210,20 @@ namespace Assignment2.Services
 
         }
 
-        public void InsertDummyGuest(AppDbContext context,  int numberOfGuestsToAdd)
+        private static void InsertDummyGuest(AppDbContext context,  int numberOfGuestsToAdd)
         {
             var restaurants = context.Restaurants;
-            var tables = context.Tables;
-            int guestCount = 0;
+            
+            var guestCount = 0;
 
+            var rand = new Random();
             foreach (var r in restaurants)
             {
-                Random rand = new Random();
-                List<Dish> dishes = new List<Dish>();
-                foreach (var rd in r.RestaurantDishes)
+                var dishes = r.RestaurantDishes.Select(rd => rd.Dish).ToList();
+
+                foreach (var t in r.Tables)
                 {
-                    dishes.Add(rd.Dish);
-                }
-                foreach (var t in tables)
-                {
-                    for (int i = 0; i < numberOfGuestsToAdd; i++)
+                    for (var i = 0; i < numberOfGuestsToAdd; i++)
                     {
                         var guest = new Guest()
                         {
@@ -220,7 +231,7 @@ namespace Assignment2.Services
                             Time = "01:01:2000",
                             Table = t,
                         };
-                        for (int index = 0; index < 3; index++)
+                        for (var index = 0; index < 3; index++)
                         {
                             var guestDish = new GuestDish()
                             {
@@ -243,7 +254,7 @@ namespace Assignment2.Services
         #endregion
 
         #region Marcus
-        public void InsertDummyWaiters(AppDbContext context, int numberOfWaiters)
+        private static void InsertDummyWaiters(AppDbContext context, int numberOfWaiters)
         {
             var tables = context.Tables;
             int waiterCount = 0;
