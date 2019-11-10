@@ -13,7 +13,7 @@ namespace Assignment2.Services
         //(type) -> list all restaurants with give type and their average rating + latest 5 review text
         public static void ListRestaurantByType(AppDbContext context)
         {
-            Console.WriteLine("Write type of dish: ");
+            Console.WriteLine("Write type of restaurant: ");
             string type = Console.ReadLine();
             
             List<Restaurant> list = context.Restaurants.Include(r => r.Reviews).ToList();
