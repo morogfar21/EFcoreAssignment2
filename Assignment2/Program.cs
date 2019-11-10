@@ -13,11 +13,19 @@ namespace Assignment2
         static void Main(string[] args)
         {
             Console.WriteLine("Restaurant Database");
-            //Console.ReadLine();
 
             using (var context = new AppDbContext())
             {
                 Console.WriteLine("!!!Attention!!!\nIf you get errors use \"Update-Database 0 -> Update-Database\" in package manager console, to reset the database\n!!!Attention!!!\n\n");
+
+                System.Console.WriteLine("Usage:\n");
+                System.Console.WriteLine("Insert DummyData: 1\nClear Database: 2\n");
+                System.Console.WriteLine(
+                    "Insertions:\nInsert: \nr(Restaurant)\nd(Dish)\ng(Guest)\nv(Review)\nt(Table)\nw(Waiter)");
+                System.Console.WriteLine(
+                    "\nView Query: \nqr(Restaurants general information)\nqv(Restaurants based on table reviews)\nqt(Restaurants by type");
+                System.Console.WriteLine("\nExit: x");
+
                 while (true)
                 {
                     ShowCommands(context);
@@ -25,17 +33,8 @@ namespace Assignment2
             }
         }
 
-
         private static void ShowCommands(AppDbContext context)
         {
-            System.Console.WriteLine("Usage:\n");
-            System.Console.WriteLine("Insert DummyData: 1\n Clear Database: 2");
-            System.Console.WriteLine(
-                "Insertions:\nInsert: \nR(Restaurant)\nD(Dish)\nG(Guest)\nV(Review)\nT(Table)\nW(Waiter)");
-            System.Console.WriteLine(
-                "\nView Query: \nqr(Restaurants general information)\nqv(Restaurants based on table reviews)\nqt(Restaurants by type");
-            System.Console.WriteLine("\nExit: x");
-
             System.Console.WriteLine("Type command");
             string line = Console.ReadLine();
 
@@ -43,12 +42,11 @@ namespace Assignment2
             {
                 case "1":
                     DummyData.InsertAllDummyData(context, 5);
-                    Console.WriteLine("DummyDataInserted");
                     break;
                 case "2":
                     ClearDatabase.DeleteData(context);
-                    Console.WriteLine("Database Cleared");
                     break;
+
                 case "r":
                     var restaurant = Create.CreateRestaurant(context);
                     if (restaurant == null)
@@ -70,14 +68,7 @@ namespace Assignment2
                     context.Guests.Add(guest);
                     context.SaveChanges();
                     break;
-
-                /*case "p":
-                    Person person = Create.CreatePerson(context);
-                    context.Persons.Add(person);
-                    context.SaveChanges();
-                    break;
-                    */
-
+                    
                 case "v":
                     var review = Create.CreateReview(context);
                     context.Reviews.Add(review);

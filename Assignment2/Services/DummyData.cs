@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Assignment2.ShadowModels;
-using System.Linq;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Assignment2.Services
@@ -34,10 +33,13 @@ namespace Assignment2.Services
                 InsertDummyReview(context, amountOfData);
                 context.SaveChanges();
                 DummyDataInserted = true;
+                Console.WriteLine("DummyData inserted");
             }
-
+            else
+            {
+                Console.WriteLine("DummyData already inserted!");
+            }
         }
-        #region Henrik
 
         private static void InsertDummyDishes(AppDbContext context, int numberOfDishes)
         {
@@ -121,24 +123,18 @@ namespace Assignment2.Services
             context.SaveChanges();
         }
 
-        #endregion
-
-
-        #region Bertram
         private static void InsertDummyRestaurant(AppDbContext context, int numberOfRestaurants)
         {
             string[] restaurantTypeArray = { "Breakfast", "Dinner", "Supper"};
             Random rand1 = new Random();
 
-            string[] dishTypeArray = { "Appertice", "MainCourse", "Dessert", "Snack" };
+            //string[] dishTypeArray = { "Appertice", "MainCourse", "Dessert", "Snack" };
             Random rand2 = new Random();
 
             for (int i = 0; i < numberOfRestaurants; i++)
             {
                 string restaurantType = restaurantTypeArray[rand1.Next(restaurantTypeArray.Length-1)];
-                string dishType = dishTypeArray[rand2.Next(dishTypeArray.Length-1)];
-
-                //Dish dish = context.Dishes.SingleOrDefault(d => d.Type == dishType);
+                //string dishType = dishTypeArray[rand2.Next(dishTypeArray.Length-1)];
 
                 Restaurant restaurant = new Restaurant()
                 {
@@ -148,19 +144,6 @@ namespace Assignment2.Services
                     Reviews = new List<Review>(),
                     Tables = new List<Table>()
                 };
-                /*
-                if (dish != null)
-                {
-                    if (restaurant.RestaurantDishes == null)
-                        restaurant.RestaurantDishes = new List<RestaurantDish>();
-
-                    var restaurantDish = new RestaurantDish()
-                    {
-                        Restaurant = restaurant,
-                        Dish = dish
-                    };
-                    restaurant.RestaurantDishes.Add(restaurantDish);
-                }*/
 
                 context.Restaurants.Add(restaurant);
             }
@@ -251,9 +234,7 @@ namespace Assignment2.Services
             }
             context.SaveChanges();
         }
-        #endregion
 
-        #region Marcus
         private static void InsertDummyWaiters(AppDbContext context, int numberOfWaiters)
         {
             var tables = context.Tables;
@@ -283,6 +264,5 @@ namespace Assignment2.Services
             }
             context.SaveChanges();
         }
-        #endregion
     }
 }

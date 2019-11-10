@@ -18,6 +18,11 @@ namespace Assignment2.Services
                 context.RemoveRange(context.Waiters);
                 context.SaveChanges();
                 DummyData.DummyDataInserted = false;
+                Console.WriteLine("Database Cleared");
+            }
+            else
+            {
+                Console.WriteLine("Database already cleared!");
             }
         }
     }

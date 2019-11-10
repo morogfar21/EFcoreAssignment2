@@ -10,21 +10,6 @@ namespace Assignment2.Services
 {
     public static class Create
     {
-        #region Marcus
-        /*
-        public static Person CreatePerson (AppDbContext context)
-        {
-            Console.Write("Name: ");
-            string name = Console.ReadLine();
-
-            Person person = new Person()
-            {
-                Name = name
-            };
-            return person;
-
-        }
-        */
         public static Guest CreateGuest(AppDbContext context)
         {
             var table = Find.FindTable(context);
@@ -61,9 +46,6 @@ namespace Assignment2.Services
             return guest;
         }
         
-        #endregion
-
-        #region Bertram
         public static Restaurant CreateRestaurant(AppDbContext context)
         {
             var restaurant = Find.FindRestaurant(context);
@@ -78,7 +60,7 @@ namespace Assignment2.Services
             Console.Write("Type (Breakfast, Dinner, Buffet...): ");
             var type = Console.ReadLine();
 
-            Console.Write("Restaurant address: ");
+            Console.Write("New restaurant address: ");
             var address = Console.ReadLine();
 
             restaurant.Name = name;
@@ -93,8 +75,6 @@ namespace Assignment2.Services
                     {
                         Restaurant = restaurant,
                         Dish = dish
-                        //RestaurantAddress = address,
-                        //DishType = type
                     }
                 };
             }
@@ -111,7 +91,10 @@ namespace Assignment2.Services
             {
                review.Restaurant = CreateRestaurant(context);
             }
-
+            else
+            {
+                review.Restaurant = restaurant;
+            }
             Console.WriteLine("How many guests ate?: ");
             var numOfGuests = Console.ReadLine();
 
@@ -120,7 +103,12 @@ namespace Assignment2.Services
                 var guest = Find.FindGuest(context);
                 if (guest == null)
                     guest = CreateGuest(context);
-                
+
+                //if (review.Guests == null)
+                //{
+                //    review.Guests = new List<Guest>();
+                //}
+
                 review.Guests.Add(guest);
             }
 
@@ -130,17 +118,20 @@ namespace Assignment2.Services
             Console.Write("Stars: ");
             review.Stars = double.Parse(Console.ReadLine());
 
+            if (review.Dishes == null)
+            {
+                review.Dishes = new List<Dish>();
+            }
+
             foreach (var gd in review.Guests.SelectMany(g => g.GuestDishes))
             {
                 review.Dishes.Add(gd.Dish);
             }
-            
+
+
+
             return review;
         }
-
-        #endregion
-
-        #region Henrik
 
         public static Dish CreateDish(AppDbContext context)
         {
@@ -191,9 +182,6 @@ namespace Assignment2.Services
 
         }
 
-        #endregion
-
-        #region Frands
         public static Table CreateTable(AppDbContext context)
         {
             var restaurant = Find.FindRestaurant(context);
@@ -253,7 +241,5 @@ namespace Assignment2.Services
             }
             return waiter;
         }
-
-        #endregion
     }
 }

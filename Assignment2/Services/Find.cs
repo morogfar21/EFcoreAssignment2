@@ -8,14 +8,9 @@ namespace Assignment2.Services
 {
     public static class Find
     {
-        #region Marcus
-
-        #endregion
-
-        #region Bertram
         public static Restaurant FindRestaurant(AppDbContext context)
         {
-            Console.Write("Restaurant address: ");
+            Console.Write("Find restaurant address: ");
             string address = Console.ReadLine();
 
             return context.Restaurants.SingleOrDefault(r => r.Address == address);
@@ -28,9 +23,6 @@ namespace Assignment2.Services
                 
             return context.Dishes.SingleOrDefault(d => d.Name == type);
         }
-        #endregion
-
-        #region Henrik
 
         public static Guest FindGuest(AppDbContext context)
         {
@@ -39,10 +31,6 @@ namespace Assignment2.Services
 
             return context.Guests.SingleOrDefault(g => g.Name == name);
         }
-
-        #endregion
-
-        #region Frands
 
         public static Waiter FindWaiter(AppDbContext context)
         {
@@ -59,7 +47,5 @@ namespace Assignment2.Services
 
             return context.Tables.Where(t => t.Number == number).SingleOrDefault();
         }
-
-        #endregion
     }
 }

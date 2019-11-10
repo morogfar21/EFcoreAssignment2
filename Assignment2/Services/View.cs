@@ -33,52 +33,15 @@ namespace Assignment2.Services
             }
         }
 
-
-        ////(type) -> list all restaurants with given type and their average rating + latest 5 review text
-        //public static void ListRestaurantByType(AppDbContext context)
-        //{
-        //    Console.WriteLine("Write type of restaurant: ");
-        //    string type = Console.ReadLine();
-            
-        //    List<Restaurant> list = context.Restaurants.Include(r => r.Reviews).ToList();
-
-
-        //    foreach (var rest in list)
-        //    {
-        //        if (rest.Type == type)
-        //        {
-        //            double rating = CalculateAverageRating(rest.Reviews);
-        //            Console.WriteLine($"Name: {rest.Name}\n $Average rating: {rating}");
-
-        //            Console.WriteLine("Text from latest five reviews: ");
-                    
-        //            for (int i = 0; i < 5; i++)
-        //            {
-        //                Console.WriteLine(rest.Reviews[rest.Reviews.Count-1-i]);
-        //            }
-        //        }
-        //    }
-        //}
-
-        private static double CalculateAverageRating(List<Review> revList)
-        {
-            double stars = 0;
-            if (revList == null)
-                return 0;
-            foreach (var rev in revList)
-            {
-                stars += rev.Stars;
-            }
-
-            return (stars/revList.Count);
-        }
-
         //(restaurant addr) -> menu - dishes, price, avg rating
         public static void ListRestaurantGeneralInformation(AppDbContext context)
         {
             var r = Find.FindRestaurant(context);
             if (r == null)
+            {
+                Console.WriteLine("No restaurant with that Address");
                 return;
+            }
 
             var dishes = new List<Dish>();
             if (r.RestaurantDishes != null)
@@ -94,34 +57,6 @@ namespace Assignment2.Services
 
             Console.WriteLine($"\n ----- \n Average Rating: {CalculateAverageRating(r.Reviews)}\n ----- \n");
         }
-
-        ////(restaurant addr) -> menu - dishes, price, avg rating
-        //public static void ListRestaurantGeneralInformation(AppDbContext context)
-        //{
-        //    Restaurant res = Find.FindRestaurant(context);
-
-        //    List<Restaurant> restaurants = context.Restaurants.
-        //        Include(r => r.RestaurantDishes).ThenInclude(rd => rd.Dish)/*.Include(rw => rw.Reviews)*/.ToList();
-
-        //    if (res != null)
-        //    {
-        //        foreach (var restaurant in restaurants)
-        //        {
-        //            Console.Write($"Restaurant - Name: {restaurant.Name}, ");
-        //            foreach (var dish in restaurant.RestaurantDishes)
-        //            {
-        //                //Console.Write($"Dishes: {string.Join(", ", dish.Dish)} ");
-        //                Console.Write($"Dish and price: {dish.Dish.Name} - ");
-        //                Console.Write($"{dish.Dish.Price}$, ");
-        //                //Console.Write($"Price: {string.Join(", ", dish.Dish.Price)} ");
-        //            }
-        //            double avgReview = CalculateAverageRating(restaurant.Reviews);
-        //            Console.WriteLine($"Average rating: {avgReview}");
-        //        }
-
-        //        //Console.WriteLine(string.Join(",", restaurants));
-        //    }
-        //}
 
         //(restaurant addr) -> information about guests reviews for dishes based on table. 
         public static void ListRestaurantBasedOnTableReviews(AppDbContext context)
@@ -186,6 +121,20 @@ namespace Assignment2.Services
                 }
 
             }
+        }
+
+        //Method to calculate average rating for a restaurant
+        private static double CalculateAverageRating(List<Review> revList)
+        {
+            double stars = 0;
+            if (revList == null)
+                return 0;
+            foreach (var rev in revList)
+            {
+                stars += rev.Stars;
+            }
+
+            return (stars / revList.Count);
         }
     }
 }
